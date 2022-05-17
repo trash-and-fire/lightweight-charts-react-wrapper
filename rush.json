@@ -473,5 +473,9 @@
     //   "reviewCategory": "tools",
     //   "tags": ["tools"]
     // }
+    {
+      "packageName": "lightweight-charts-react-wrapper",
+      "projectFolder": "packages/lib"
+    }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "name": "lightweight-charts-react-wrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "lightweight-charts": "^3.8.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}
