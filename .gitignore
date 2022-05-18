@@ -69,3 +69,6 @@ common/autoinstallers/*/.npmrc
 
 # Idea settings
 .idea/
+
+# Build folder
+/packages/lib/dist/
