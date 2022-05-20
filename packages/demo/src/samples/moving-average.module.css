@@ -1,0 +1,20 @@
+.container {
+    position: relative;
+    font-family: 'Trebuchet MS', Roboto, Ubuntu, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.sma-legend {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 96px;
+    height: 70px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.23);
+    text-align: left;
+    z-index: 1000;
+    pointer-events: none;
+}

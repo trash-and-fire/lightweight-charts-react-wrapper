@@ -1,15 +1,21 @@
 import React, {useState} from 'react';
 import {LineStyle} from 'lightweight-charts';
+import {Link} from 'react-router-dom';
 import {Chart, AreaSeries, PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
-import './App.css';
 
-function App() {
+import './terminal.css';
+
+export function Terminal() {
     const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(300);
     const [color, setColor] = useState<string>('')
     return (
         <div className="App">
             <header className="App-header">
+                <Link to="/">
+                    Gallery
+                </Link>
+                <br/>
                 <label>
                     Width: <input type="range" min={300} max={900} value={width} onChange={(e) => setWidth(e.target.valueAsNumber)}/>
                 </label>
@@ -58,5 +64,3 @@ function App() {
         </div>
     );
 }
-
-export default App;

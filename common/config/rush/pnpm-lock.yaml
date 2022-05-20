@@ -10,14 +10,18 @@ importers:
       '@testing-library/jest-dom': ^5.14.1
       '@testing-library/react': ^13.0.0
       '@testing-library/user-event': ^13.2.1
+      '@types/classnames': ~2.3.1
       '@types/jest': ^27.0.1
       '@types/node': ^16.7.13
       '@types/react': ^18.0.9
       '@types/react-dom': ^18.0.4
+      '@types/webpack-env': ~1.17.0
+      classnames: ~2.3.1
       lightweight-charts: ^3.8.0
       lightweight-charts-react-wrapper: workspace:*
       react: ^18.1.0
       react-dom: ^18.1.0
+      react-router-dom: ~6.3.0
       react-scripts: 5.0.1
       typescript: ~4.6.4
       web-vitals: ^2.1.0
@@ -29,13 +33,18 @@ importers:
       '@types/node': 16.11.36
       '@types/react': 18.0.9
       '@types/react-dom': 18.0.4
+      '@types/webpack-env': 1.17.0
+      classnames: 2.3.1
       lightweight-charts: 3.8.0
       lightweight-charts-react-wrapper: link:../lib
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
+      react-router-dom: 6.3.0_react-dom@18.1.0+react@18.1.0
       react-scripts: 5.0.1_react@18.1.0+typescript@4.6.4
       typescript: 4.6.4
       web-vitals: 2.1.4
+    devDependencies:
+      '@types/classnames': 2.3.1
 
   ../../packages/lib:
     specifiers:
@@ -2225,6 +2234,13 @@ packages:
       '@types/node': 16.11.36
     dev: false
 
+  /@types/classnames/2.3.1:
+    resolution: {integrity: sha512-zeOWb0JGBoVmlQoznvqXbE0tEC/HONsnoUNH19Hc96NFsTAwTXbTqb8FMYkru1F/iqp7a18Ws3nWJvtA1sHD1A==}
+    deprecated: This is a stub types definition. classnames provides its own type definitions, so you do not need this installed.
+    dependencies:
+      classnames: 2.3.1
+    dev: true
+
   /@types/connect-history-api-fallback/1.3.5:
     resolution: {integrity: sha512-h8QJa8xSb1WD4fpKBDcATDNGXghFj6/3GRWG6dhmRcu0RX1Ubasur2Uvx5aeEwlf0MwblEC2bMzzMQntxnw/Cw==}
     dependencies:
@@ -2418,6 +2434,10 @@ packages:
 
   /@types/trusted-types/2.0.2:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
+    dev: false
+
+  /@types/webpack-env/1.17.0:
+    resolution: {integrity: sha512-eHSaNYEyxRA5IAG0Ym/yCyf86niZUIF/TpWKofQI/CVfh5HsMEUyfE2kwFxha4ow0s5g0LfISQxpDKjbRDrizw==}
     dev: false
 
   /@types/ws/8.5.3:
@@ -3412,6 +3432,9 @@ packages:
   /cjs-module-lexer/1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
     dev: false
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
 
   /clean-css/5.3.0:
     resolution: {integrity: sha512-YYuuxv4H/iNb1Z/5IbMRoxgrzjWGhOEFfd+groZ5dMCVkpENiMZmwspdrzBo9286JjM1gZJPAyL7ZIdzuvu2AQ==}
@@ -5103,6 +5126,12 @@ packages:
   /he/1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
+    dev: false
+
+  /history/5.3.0:
+    resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
+    dependencies:
+      '@babel/runtime': 7.17.9
     dev: false
 
   /hoopy/0.1.4:
@@ -7913,6 +7942,27 @@ packages:
   /react-refresh/0.11.0:
     resolution: {integrity: sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /react-router-dom/6.3.0_react-dom@18.1.0+react@18.1.0:
+    resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      history: 5.3.0
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+      react-router: 6.3.0_react@18.1.0
+    dev: false
+
+  /react-router/6.3.0_react@18.1.0:
+    resolution: {integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      history: 5.3.0
+      react: 18.1.0
     dev: false
 
   /react-scripts/5.0.1_react@18.1.0+typescript@4.6.4:
