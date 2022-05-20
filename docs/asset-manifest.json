@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.86b585ff.css",
-    "main.js": "/static/js/main.e5f06487.js",
-    "static/js/744.1930cdc4.chunk.js": "/static/js/744.1930cdc4.chunk.js",
-    "index.html": "/index.html",
-    "main.86b585ff.css.map": "/static/css/main.86b585ff.css.map",
-    "main.e5f06487.js.map": "/static/js/main.e5f06487.js.map",
-    "744.1930cdc4.chunk.js.map": "/static/js/744.1930cdc4.chunk.js.map"
+    "main.css": "/lightweight-charts-react-wrapper/static/css/main.86b585ff.css",
+    "main.js": "/lightweight-charts-react-wrapper/static/js/main.b0be982e.js",
+    "static/js/744.1930cdc4.chunk.js": "/lightweight-charts-react-wrapper/static/js/744.1930cdc4.chunk.js",
+    "index.html": "/lightweight-charts-react-wrapper/index.html",
+    "main.86b585ff.css.map": "/lightweight-charts-react-wrapper/static/css/main.86b585ff.css.map",
+    "main.b0be982e.js.map": "/lightweight-charts-react-wrapper/static/js/main.b0be982e.js.map",
+    "744.1930cdc4.chunk.js.map": "/lightweight-charts-react-wrapper/static/js/744.1930cdc4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.86b585ff.css",
-    "static/js/main.e5f06487.js"
+    "static/js/main.b0be982e.js"
   ]
 }
