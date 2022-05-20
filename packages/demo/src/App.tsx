@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Chart, AreaSeries} from 'lightweight-charts-react-wrapper';
+import {LineStyle} from 'lightweight-charts';
+import {Chart, AreaSeries, PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
 import './App.css';
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
                     onClick={() => console.log('click')}
                     onCrosshairMove={() => console.log('move')}
                 >
+                    <PriceScale id="left" visible={true}/>
+                    <TimeScale onVisibleLogicalRangeChange={console.log}/>
                     <AreaSeries
                         lineColor={color ? color : undefined}
                         data={[
@@ -39,7 +42,17 @@ function App() {
                             {time: '2018-10-29', value: 52.23},
                             {time: '2018-10-30', value: 52.69}
                         ]}
-                    />
+                    >
+                        <PriceLine
+                            title="price"
+                            price={51}
+                            color="#FF0000"
+                            lineWidth={1}
+                            lineStyle={LineStyle.Solid}
+                            lineVisible={true}
+                            axisLabelVisible={true}
+                        />
+                    </AreaSeries>
                 </Chart>
             </header>
         </div>
