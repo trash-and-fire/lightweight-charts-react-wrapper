@@ -2,6 +2,7 @@ import {
     ForwardedRef,
     forwardRef,
     memo,
+    MutableRefObject,
     ReactNode,
     useCallback,
     useImperativeHandle,
@@ -9,13 +10,16 @@ import {
     useRef,
     useState
 } from 'react';
-import {ChartOptions, createChart, DeepPartial, IChartApi} from 'lightweight-charts';
+import {ChartOptions, DeepPartial, IChartApi, MouseEventHandler} from 'lightweight-charts';
 
 import {ChartContext} from './internal/chart-context';
-import {LazyValue} from '../internal/lazy-value';
+import {createLazyValue, LazyValue} from '../internal/lazy-value';
+import {chart, ChartActionResult} from '../internal/chart';
 
 export interface ChartProps extends DeepPartial<ChartOptions> {
     children?: ReactNode;
+    onClick?: MouseEventHandler;
+    onCrosshairMove?: MouseEventHandler;
 }
 
 export const Chart = memo(forwardRef((props: ChartProps, ref: ForwardedRef<IChartApi>) => {
@@ -30,26 +34,9 @@ export const Chart = memo(forwardRef((props: ChartProps, ref: ForwardedRef<IChar
 }));
 
 const ChartComponent = memo(forwardRef((props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>) => {
-    const {children, container, ...rest} = props;
+    const {children} = props;
 
-    const context = useRef(createLazyChart(container, rest));
-
-    useLayoutEffect(() => {
-        const api = context.current();
-
-        return () => {
-            api.remove();
-            context.current.reset();
-        }
-    }, []);
-
-    useLayoutEffect(() => {
-        const api = context.current();
-
-        api.applyOptions(rest);
-    }, [rest]);
-
-    useImperativeHandle(ref, () => context.current(), []);
+    const context = useChartAction(props, ref);
 
     return (
         <ChartContext.Provider value={context.current}>
@@ -58,19 +45,27 @@ const ChartComponent = memo(forwardRef((props: ChartProps & { container: HTMLEle
     );
 }));
 
-function createLazyChart(target: HTMLElement, options: DeepPartial<ChartOptions>): LazyValue<IChartApi> {
-    let subject: IChartApi | null = null;
+function useChartAction(props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>): MutableRefObject<LazyValue<ChartActionResult>> {
+    const {children, container, ...rest} = props;
 
-    const getter = () => {
-        if (subject === null) {
-            subject = createChart(target, options);
+    const context = useRef(createLazyValue(
+        () => chart(container, rest),
+        (value: ChartActionResult) => value.destroy()
+    ));
+
+    useLayoutEffect(() => {
+        context.current();
+
+        return () => {
+            context.current.reset();
         }
-        return subject;
-    }
+    }, []);
 
-    getter.reset = () => {
-        subject = null;
-    };
+    useLayoutEffect(() => {
+        context.current().update(rest);
+    }, [rest]);
 
-    return getter;
+    useImperativeHandle(ref, () => context.current().subject(), []);
+
+    return context;
 }

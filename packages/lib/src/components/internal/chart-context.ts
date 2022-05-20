@@ -1,6 +1,6 @@
 import {createContext} from 'react';
-import {IChartApi} from 'lightweight-charts';
+import {ChartActionResult} from '../../internal/chart';
 
-export type ChartContextValue = null | (() => IChartApi);
+export type ChartContextValue = null | (() => ChartActionResult);
 
 export const ChartContext = createContext<ChartContextValue>(null);

@@ -3,43 +3,25 @@ import {
     forwardRef,
     memo,
     ReactNode,
-    useContext,
-    useImperativeHandle,
-    useLayoutEffect,
-    useRef
 } from 'react';
-import {AreaSeriesPartialOptions, IChartApi, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
+import {AreaSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
 
-import {ChartContext} from './internal/chart-context';
 import {SeriesContext} from './internal/series-context';
-import {LazyValue} from '../internal/lazy-value';
+import {createSeriesHook} from './internal/create-series-hook';
+import {AreaSeriesParams} from '../internal/series';
+
+const useAreaSeriesAction = createSeriesHook<AreaSeriesParams>('Area');
 
 export interface AreaSeriesProps extends AreaSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Area'][];
+    reactive?: boolean;
     children?: ReactNode;
 }
 
 export const AreaSeries = memo(forwardRef((props: AreaSeriesProps, ref: ForwardedRef<ISeriesApi<'Area'>>) => {
-    const {children, data, ...rest} = props;
-    const chart = useContext(ChartContext)!;
-    const context = useRef(createLazyAreaSeries(chart, rest, data));
+    const {children, ...rest} = props;
 
-    useLayoutEffect(() => {
-        const api = context.current();
-
-        return () => {
-            chart().removeSeries(api);
-            context.current.reset();
-        }
-    }, []);
-
-    useLayoutEffect(() => {
-        const api = context.current();
-
-        api.applyOptions(rest);
-    }, [rest]);
-
-    useImperativeHandle(ref, () => context.current(), []);
+    const context = useAreaSeriesAction(rest, ref);
 
     return (
         <SeriesContext.Provider value={context.current}>
@@ -48,24 +30,3 @@ export const AreaSeries = memo(forwardRef((props: AreaSeriesProps, ref: Forwarde
     );
 }));
 
-function createLazyAreaSeries(
-    target: () => IChartApi,
-    options: AreaSeriesPartialOptions,
-    data: SeriesDataItemTypeMap['Area'][]
-): LazyValue<ISeriesApi<'Area'>> {
-    let subject: ISeriesApi<'Area'> | null = null;
-
-    const getter = () => {
-        if (subject === null) {
-            subject = target().addAreaSeries(options);
-            subject.setData(data);
-        }
-        return subject;
-    }
-
-    getter.reset = () => {
-        subject = null;
-    }
-
-    return getter;
-}

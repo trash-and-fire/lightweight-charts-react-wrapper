@@ -1,6 +1,6 @@
 import {createContext} from 'react';
-import {ISeriesApi, SeriesType} from 'lightweight-charts';
+import {SeriesActionParams, SeriesActionResult} from '../../internal/series';
 
-export type SeriesContextValue = null | (() => ISeriesApi<SeriesType>);
+export type SeriesContextValue = null | (() => SeriesActionResult<SeriesActionParams>);
 
 export const SeriesContext = createContext<SeriesContextValue>(null);
