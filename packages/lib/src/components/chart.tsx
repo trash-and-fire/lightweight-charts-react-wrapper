@@ -12,6 +12,7 @@ import {
 import {ChartOptions, createChart, DeepPartial, IChartApi} from 'lightweight-charts';
 
 import {ChartContext} from './internal/chart-context';
+import {LazyValue} from '../internal/lazy-value';
 
 export interface ChartProps extends DeepPartial<ChartOptions> {
     children?: ReactNode;
@@ -36,7 +37,10 @@ const ChartComponent = memo(forwardRef((props: ChartProps & { container: HTMLEle
     useLayoutEffect(() => {
         const api = context.current();
 
-        return () => api.remove();
+        return () => {
+            api.remove();
+            context.current.reset();
+        }
     }, []);
 
     useLayoutEffect(() => {
@@ -54,13 +58,19 @@ const ChartComponent = memo(forwardRef((props: ChartProps & { container: HTMLEle
     );
 }));
 
-function createLazyChart(target: HTMLElement, options: DeepPartial<ChartOptions>): () => IChartApi {
+function createLazyChart(target: HTMLElement, options: DeepPartial<ChartOptions>): LazyValue<IChartApi> {
     let subject: IChartApi | null = null;
 
-    return () => {
+    const getter = () => {
         if (subject === null) {
             subject = createChart(target, options);
         }
         return subject;
     }
+
+    getter.reset = () => {
+        subject = null;
+    };
+
+    return getter;
 }

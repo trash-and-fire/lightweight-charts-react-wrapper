@@ -12,6 +12,7 @@ import {AreaSeriesPartialOptions, IChartApi, ISeriesApi, SeriesDataItemTypeMap} 
 
 import {ChartContext} from './internal/chart-context';
 import {SeriesContext} from './internal/series-context';
+import {LazyValue} from '../internal/lazy-value';
 
 export interface AreaSeriesProps extends AreaSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Area'][];
@@ -26,7 +27,10 @@ export const AreaSeries = memo(forwardRef((props: AreaSeriesProps, ref: Forwarde
     useLayoutEffect(() => {
         const api = context.current();
 
-        return () => chart().removeSeries(api);
+        return () => {
+            chart().removeSeries(api);
+            context.current.reset();
+        }
     }, []);
 
     useLayoutEffect(() => {
@@ -44,14 +48,24 @@ export const AreaSeries = memo(forwardRef((props: AreaSeriesProps, ref: Forwarde
     );
 }));
 
-function createLazyAreaSeries(target: () => IChartApi, options: AreaSeriesPartialOptions, data: SeriesDataItemTypeMap['Area'][]): () => ISeriesApi<'Area'> {
+function createLazyAreaSeries(
+    target: () => IChartApi,
+    options: AreaSeriesPartialOptions,
+    data: SeriesDataItemTypeMap['Area'][]
+): LazyValue<ISeriesApi<'Area'>> {
     let subject: ISeriesApi<'Area'> | null = null;
 
-    return () => {
+    const getter = () => {
         if (subject === null) {
             subject = target().addAreaSeries(options);
             subject.setData(data);
         }
         return subject;
     }
+
+    getter.reset = () => {
+        subject = null;
+    }
+
+    return getter;
 }
