@@ -1,18 +1,66 @@
-import {useLayoutEffect, useRef} from 'react';
-import {createChart} from 'lightweight-charts';
+import {
+    ForwardedRef,
+    forwardRef,
+    memo,
+    ReactNode,
+    useCallback,
+    useImperativeHandle,
+    useLayoutEffect,
+    useRef,
+    useState
+} from 'react';
+import {ChartOptions, createChart, DeepPartial, IChartApi} from 'lightweight-charts';
 
-export interface ChartProps {
+import {ChartContext} from './internal/chart-context';
 
+export interface ChartProps extends DeepPartial<ChartOptions> {
+    children?: ReactNode;
 }
 
 export function Chart(props: ChartProps): JSX.Element {
-    const ref = useRef<HTMLDivElement>(null);
+    const [element, setElement] = useState<HTMLElement | null>(null);
+    const ref = useCallback((ref: HTMLElement | null) => setElement(ref), []);
+
+    return (
+        <div ref={ref}>
+            {element !== null ? <ChartComponent {...props} container={element}/> : null}
+        </div>
+    )
+}
+
+const ChartComponent = memo(forwardRef((props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>) => {
+    const {children, container, ...rest} = props;
+
+    const context = useRef(createLazyChart(container, rest));
 
     useLayoutEffect(() => {
-        if (ref.current !== null) {
-            createChart(ref.current);
-        }
+        const api = context.current();
+
+        return () => api.remove();
     }, []);
 
-    return <div ref={ref}/>
+    useLayoutEffect(() => {
+        const api = context.current();
+
+        api.applyOptions(rest);
+    }, [rest]);
+
+    useImperativeHandle(ref, () => context.current(), []);
+
+    return (
+        <ChartContext.Provider value={context.current}>
+            {children}
+        </ChartContext.Provider>
+    );
+}));
+
+function createLazyChart(target: HTMLElement, options: DeepPartial<ChartOptions>): () => IChartApi {
+    let subject: IChartApi | null = null;
+
+    return () => {
+        if (subject === null) {
+            subject = createChart(target, options);
+        }
+        return subject;
+    }
 }

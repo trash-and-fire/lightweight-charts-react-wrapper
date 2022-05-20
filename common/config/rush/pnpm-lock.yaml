@@ -43,6 +43,7 @@ importers:
       react: ^18.1.0
       react-dom: ^18.1.0
       rimraf: ^2.6.2
+      tslib: ~2.4.0
       typescript: ~4.6.4
     devDependencies:
       '@types/react': 18.0.9
@@ -51,6 +52,7 @@ importers:
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
       rimraf: 2.7.1
+      tslib: 2.4.0
       typescript: 4.6.4
 
 packages:
@@ -9003,7 +9005,6 @@ packages:
 
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
-    dev: false
 
   /tsutils/3.21.0_typescript@4.6.4:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
