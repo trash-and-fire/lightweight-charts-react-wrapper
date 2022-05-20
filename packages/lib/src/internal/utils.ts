@@ -9,5 +9,3 @@ export interface ActionResult<T> {
     update(params: T): void;
     destroy(): void;
 }
-
-export type Reference<T> = (ref: T | null) => void;

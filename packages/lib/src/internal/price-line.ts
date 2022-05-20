@@ -1,5 +1,6 @@
-import type {IPriceLine, ISeriesApi, SeriesType, PriceLineOptions} from 'lightweight-charts';
-import type {ActionResult} from './utils';
+import {IPriceLine, PriceLineOptions} from 'lightweight-charts';
+import {ActionResult} from './utils';
+import {SeriesActionParams, SeriesActionResult} from './series';
 
 export type PriceLineActionResult = ActionResult<PriceLineParams> & { subject(): IPriceLine };
 
@@ -7,11 +8,11 @@ export interface PriceLineParams extends PriceLineOptions {
 
 }
 
-export function priceLine<T extends SeriesType>(
-    target: ISeriesApi<T>,
+export function priceLine<T extends SeriesActionParams>(
+    target: SeriesActionResult<T>,
     params: PriceLineParams
 ): PriceLineActionResult {
-    const subject = target.createPriceLine(params);
+    const subject = target.subject().createPriceLine(params);
 
     return {
         subject(): IPriceLine {
@@ -23,7 +24,9 @@ export function priceLine<T extends SeriesType>(
             }
         },
         destroy(): void {
-            target.removePriceLine(subject);
+            if (target.alive()) {
+                target.subject().removePriceLine(subject);
+            }
         }
     };
 }

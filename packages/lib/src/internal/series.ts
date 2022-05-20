@@ -1,7 +1,6 @@
 import {
     IChartApi,
     ISeriesApi,
-    SeriesType,
     SeriesDataItemTypeMap,
     AreaSeriesPartialOptions,
     BarSeriesPartialOptions,
@@ -11,7 +10,8 @@ import {
     BaselineSeriesPartialOptions,
 } from 'lightweight-charts';
 
-import {ActionResult, Reference} from './utils';
+import {ActionResult} from './utils';
+import {ChartActionResult} from './chart';
 
 export interface AreaSeriesParams extends AreaSeriesPartialOptions {
     type: 'Area';
@@ -57,15 +57,17 @@ export type SeriesActionParams =
     | LineSeriesParams
     | BaselineSeriesParams
 
-export type SeriesActionResult<T extends SeriesActionParams> = ActionResult<T> & { subject(): ISeriesApi<T['type']> }
+export type SeriesActionResult<T extends SeriesActionParams> = ActionResult<T> & { subject(): ISeriesApi<T['type']>; alive(): boolean }
 
-export function series<T extends SeriesActionParams>(target: IChartApi, params: T): SeriesActionResult<T> {
-    let subject = createSeries(target, params);
-    let reference: Reference<ISeriesApi<SeriesType>>;
-
+export function series<T extends SeriesActionParams>(target: ChartActionResult, params: T): SeriesActionResult<T> {
+    let subject = createSeries(target.subject(), params);
     let data = params.reactive ? params.data : null;
+    let destroyed = false;
 
     return {
+        alive(): boolean {
+            return !destroyed;
+        },
         subject(): ISeriesApi<T['type']> {
             return subject;
         },
@@ -93,8 +95,10 @@ export function series<T extends SeriesActionParams>(target: IChartApi, params: 
             }
         },
         destroy(): void {
-            reference?.(null);
-            target.removeSeries(subject);
+            if (target.alive()) {
+                target.subject().removeSeries(subject);
+            }
+            destroyed = true;
         }
     };
 }

@@ -1,5 +1,4 @@
-import type {
-    IChartApi,
+import {
     ITimeScaleApi,
     DeepPartial,
     LogicalRangeChangeEventHandler,
@@ -7,7 +6,8 @@ import type {
     TimeRangeChangeEventHandler,
     TimeScaleOptions
 } from 'lightweight-charts';
-import type {ActionResult} from './utils';
+import {ActionResult} from './utils';
+import {ChartActionResult} from './chart';
 
 export interface TimeScaleParams extends DeepPartial<TimeScaleOptions> {
     onVisibleTimeRangeChange?: TimeRangeChangeEventHandler;
@@ -17,7 +17,7 @@ export interface TimeScaleParams extends DeepPartial<TimeScaleOptions> {
 
 export type TimeScaleActionResult = ActionResult<TimeScaleParams> & { subject(): ITimeScaleApi };
 
-export function timeScale(target: IChartApi, params: TimeScaleParams): TimeScaleActionResult {
+export function timeScale(target: ChartActionResult, params: TimeScaleParams): TimeScaleActionResult {
     let {
         onVisibleTimeRangeChange,
         onVisibleLogicalRangeChange,
@@ -25,7 +25,7 @@ export function timeScale(target: IChartApi, params: TimeScaleParams): TimeScale
         ...options
     } = params;
 
-    const subject = target.timeScale();
+    const subject = target.subject().timeScale();
 
     subject.applyOptions(options);
 

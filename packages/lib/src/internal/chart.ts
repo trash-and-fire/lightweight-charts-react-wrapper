@@ -13,7 +13,7 @@ export interface ChartActionParams extends DeepPartial<ChartOptions> {
     onCrosshairMove?: MouseEventHandler;
 }
 
-export type ChartActionResult = ActionResult<ChartActionParams> & { subject(): IChartApi };
+export type ChartActionResult = ActionResult<ChartActionParams> & { subject(): IChartApi; alive(): boolean };
 
 export function chart(
     node: HTMLElement,
@@ -27,6 +27,7 @@ export function chart(
 
     let width = options?.width ?? 0;
     let height = options?.height ?? 0;
+    let destroyed = false;
 
     const chart = createChart(node, options);
 
@@ -39,6 +40,9 @@ export function chart(
     }
 
     return {
+        alive(): boolean {
+            return !destroyed;
+        },
         subject(): IChartApi {
             return chart;
         },
@@ -91,6 +95,7 @@ export function chart(
                 chart.unsubscribeCrosshairMove(onCrosshairMove);
             }
             chart.remove();
+            destroyed = true;
         }
     }
 }

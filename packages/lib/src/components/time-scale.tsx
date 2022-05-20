@@ -39,7 +39,7 @@ function useTimeScaleAction(props: TimeScaleProps, ref: ForwardedRef<ITimeScaleA
     const chart = useContext(ChartContext)!;
 
     const context = useRef(createLazyValue(
-        () => timeScale(chart().subject(), rest),
+        () => timeScale(chart(), rest),
         (value: TimeScaleActionResult) => value.destroy()
     ));
 

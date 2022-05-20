@@ -31,7 +31,7 @@ function usePriceScaleAction(props: PriceScaleProps, ref: ForwardedRef<IPriceSca
     const chart = useContext(ChartContext)!;
 
     const context = useRef(createLazyValue(
-        () => priceScale(chart().subject(), rest),
+        () => priceScale(chart(), rest),
         (value: PriceScaleActionResult) => value.destroy()
     ));
 

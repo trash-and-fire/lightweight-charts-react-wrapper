@@ -29,7 +29,7 @@ function usePriceLineAction(props: PriceLineProps, ref: ForwardedRef<IPriceLine>
     const series = useContext(SeriesContext)!;
 
     const context = useRef(createLazyValue(
-        () => priceLine(series().subject(), rest),
+        () => priceLine(series(), rest),
         (value: PriceLineActionResult) => value.destroy()
     ));
 
