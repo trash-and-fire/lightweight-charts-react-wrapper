@@ -1,5 +1,5 @@
 import {useCallback, useRef, useState} from 'react';
-import {BarPrice, ISeriesApi, MouseEventParams} from 'lightweight-charts';
+import {BarPrice, ISeriesApi, LineWidth, MouseEventParams} from 'lightweight-charts';
 import {Chart, AreaSeries} from 'lightweight-charts-react-wrapper';
 
 import styles from './legend.module.css';
@@ -56,7 +56,7 @@ const options = {
     },
     crosshair: {
         vertLine: {
-            // width: 5,
+            width: 5 as LineWidth,
             color: 'rgba(224, 227, 235, 0.1)',
             style: 0,
         },
