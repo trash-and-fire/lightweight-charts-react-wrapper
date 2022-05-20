@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
+import {IChartApi} from 'lightweight-charts';
 import {Chart, AreaSeries} from 'lightweight-charts-react-wrapper';
+
 import './App.css';
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
                     Color: <input type="color" value={color} onChange={(e) => setColor(e.target.value)}/>
                 </label>
                 <br/>
-                <Chart width={width} height={height}>
+                <Chart width={width} height={height} ref={useCallback((ref: IChartApi | null) => console.log(ref), [])}>
                     <AreaSeries
                         lineColor={color ? color : undefined}
                         data={[

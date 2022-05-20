@@ -18,16 +18,16 @@ export interface ChartProps extends DeepPartial<ChartOptions> {
     children?: ReactNode;
 }
 
-export function Chart(props: ChartProps): JSX.Element {
+export const Chart = memo(forwardRef((props: ChartProps, ref: ForwardedRef<IChartApi>) => {
     const [element, setElement] = useState<HTMLElement | null>(null);
-    const ref = useCallback((ref: HTMLElement | null) => setElement(ref), []);
+    const handleContainerRef = useCallback((ref: HTMLElement | null) => setElement(ref), []);
 
     return (
-        <div ref={ref}>
-            {element !== null ? <ChartComponent {...props} container={element}/> : null}
+        <div ref={handleContainerRef}>
+            {element !== null ? <ChartComponent {...props} ref={ref} container={element}/> : null}
         </div>
     )
-}
+}));
 
 const ChartComponent = memo(forwardRef((props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>) => {
     const {children, container, ...rest} = props;
