@@ -9,6 +9,9 @@
     "build": "tsc",
     "build:watch": "tsc --watch"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
