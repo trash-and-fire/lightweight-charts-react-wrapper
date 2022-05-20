@@ -4,7 +4,7 @@ import {Terminal} from './terminal';
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/lightweight-charts-react-wrapper/">
             <Routes>
                 <Route path="/" element={<Gallery/>}/>
                 <Route path="/terminal/" element={<Terminal/>}/>
