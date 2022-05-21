@@ -45,6 +45,7 @@
   },
   "peerDependencies": {
     "lightweight-charts": ">=3.8.0",
-    "tslib": "*"
+    "tslib": "*",
+    "react": ">=16.8.0"
   }
 }
