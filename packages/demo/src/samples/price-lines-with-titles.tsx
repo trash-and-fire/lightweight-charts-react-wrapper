@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {IChartApi, LineStyle} from 'lightweight-charts';
 import {Chart, LineSeries, PriceLine} from 'lightweight-charts-react-wrapper';
 

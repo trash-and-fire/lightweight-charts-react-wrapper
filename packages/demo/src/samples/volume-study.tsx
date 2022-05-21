@@ -1,3 +1,4 @@
+import React from 'react';
 import {Chart, AreaSeries, HistogramSeries} from 'lightweight-charts-react-wrapper';
 
 export default function VolumeStudy() {

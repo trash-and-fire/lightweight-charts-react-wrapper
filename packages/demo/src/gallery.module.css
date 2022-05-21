@@ -30,6 +30,7 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    appearance: none;
 }
 
 .link:hover {

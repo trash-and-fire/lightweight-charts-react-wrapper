@@ -1,3 +1,4 @@
+import React from 'react';
 import {CrosshairMode} from 'lightweight-charts';
 import {Chart, CandlestickSeries, LineSeries} from 'lightweight-charts-react-wrapper';
 

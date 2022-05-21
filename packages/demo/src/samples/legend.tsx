@@ -1,4 +1,4 @@
-import {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {BarPrice, ISeriesApi, LineWidth, MouseEventParams} from 'lightweight-charts';
 import {Chart, AreaSeries} from 'lightweight-charts-react-wrapper';
 

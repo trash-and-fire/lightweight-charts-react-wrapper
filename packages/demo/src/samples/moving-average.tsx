@@ -1,4 +1,4 @@
-import {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {BarPrice, BusinessDay, CandlestickData, CrosshairMode, ISeriesApi, MouseEventParams} from 'lightweight-charts';
 import {Chart, LineSeries, CandlestickSeries} from 'lightweight-charts-react-wrapper';
 

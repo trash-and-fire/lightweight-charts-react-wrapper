@@ -1,3 +1,4 @@
+import React from 'react';
 import {Chart, AreaSeries} from 'lightweight-charts-react-wrapper';
 
 export default function CustomWatermark() {

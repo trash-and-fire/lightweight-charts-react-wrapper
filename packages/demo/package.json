@@ -19,7 +19,11 @@
     "lightweight-charts": "^3.8.0",
     "classnames": "~2.3.1",
     "react-router-dom": "~6.3.0",
-    "@types/webpack-env": "~1.17.0"
+    "@types/webpack-env": "~1.17.0",
+    "codesandbox": "~2.2.3",
+    "codesandboxer": "~1.0.3",
+    "lodash-es": "~4.17.21",
+    "@types/lodash-es": "~4.17.6"
   },
   "scripts": {
     "start": "react-scripts start",

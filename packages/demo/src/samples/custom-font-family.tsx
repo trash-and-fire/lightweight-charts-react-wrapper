@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {Chart, AreaSeries} from 'lightweight-charts-react-wrapper';
 
 import {Switcher} from './components/switcher';
