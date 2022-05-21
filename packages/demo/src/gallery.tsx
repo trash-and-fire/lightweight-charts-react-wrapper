@@ -5,11 +5,11 @@ const context = require.context('./samples', false, /\.tsx$/);
 // eslint-disable-next-line
 import styles from './gallery.module.css';
 
-console.log(context);
 const components = context.keys().map((request) => {
     // const [file] = /(\w|[-.])+$/.exec(request);
     // const id = repl.samples[file]?.uid;
     return {
+        path: context.resolve(request).slice(2),
         // href: id !== undefined ? `https://svelte.dev/repl/${id}` : undefined,
         constructor: context(request).default,
     }
@@ -23,11 +23,11 @@ export function Gallery() {
             </Link>
             <br/>
             <div className={styles.container}>
-                {components.map((component: { href?: string; constructor: () => JSX.Element }) => (
+                {components.map((component: { path: string; constructor: () => JSX.Element }) => (
                     <div key={component.constructor.name} className={styles.item}>
                         <Sandboxer
                             examplePath={
-                                'packages/demo/src/samples/bar-chart.tsx'
+                                'packages/demo/' + component.path
                             }
                             gitInfo={{
                                 account: 'trash-and-fire',
@@ -40,7 +40,8 @@ export function Gallery() {
                                 'react-dom': '*',
                                 'lightweight-charts': '>=3.8.0',
                                 'tslib': '*',
-                                '@babel/runtime': '*'
+                                '@babel/runtime': '*',
+                                'classnames': '*',
                             }}
                             template="create-react-app-typescript"
                         >

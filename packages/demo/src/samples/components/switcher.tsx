@@ -1,4 +1,4 @@
-import {ChangeEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import cn from 'classnames';
 
 import styles from './switcher.module.css';
@@ -19,7 +19,7 @@ export function Switcher({list, value, name = 'switcher', onChange}: SwitcherPro
                     <input
                         className={styles.input}
                         type="radio"
-                        name="font-family"
+                        name={name}
                         value={item}
                         checked={item === value}
                         onChange={onChange}
