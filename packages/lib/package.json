@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "description": "",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -43,6 +44,7 @@
     "tslib": "~2.4.0"
   },
   "peerDependencies": {
-    "lightweight-charts": ">=3.8.0"
+    "lightweight-charts": ">=3.8.0",
+    "tslib": "*"
   }
 }
