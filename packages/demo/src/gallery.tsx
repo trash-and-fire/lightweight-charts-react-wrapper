@@ -46,7 +46,7 @@ export function Gallery() {
                             template="create-react-app-typescript"
                         >
                             {({ onClick }) => (
-                                <a className={styles.link} target="_blank" onClick={onClick} title="Show in REPL">
+                                <a className={styles.link} href="#" target="_blank" onClick={onClick} title="Show in REPL">
                                     <svg width="18" height="15" viewBox="0 0 18 15" xmlns="http://www.w3.org/2000/svg">
                                         <g stroke="currentColor" fill="none">
                                             <path d="M12.5 2.5l5 5-5 5M10.5.5l-3 14M5.5 2.5l-5 5 5 5"></path>
