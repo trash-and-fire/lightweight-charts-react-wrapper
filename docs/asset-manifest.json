@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/lightweight-charts-react-wrapper/static/css/main.86b585ff.css",
-    "main.js": "/lightweight-charts-react-wrapper/static/js/main.b92e8774.js",
-    "static/js/744.1930cdc4.chunk.js": "/lightweight-charts-react-wrapper/static/js/744.1930cdc4.chunk.js",
+    "main.css": "/lightweight-charts-react-wrapper/static/css/main.0b8eafef.css",
+    "main.js": "/lightweight-charts-react-wrapper/static/js/main.144cdfb5.js",
+    "static/js/961.9eb9e730.chunk.js": "/lightweight-charts-react-wrapper/static/js/961.9eb9e730.chunk.js",
     "index.html": "/lightweight-charts-react-wrapper/index.html",
-    "main.86b585ff.css.map": "/lightweight-charts-react-wrapper/static/css/main.86b585ff.css.map",
-    "main.b92e8774.js.map": "/lightweight-charts-react-wrapper/static/js/main.b92e8774.js.map",
-    "744.1930cdc4.chunk.js.map": "/lightweight-charts-react-wrapper/static/js/744.1930cdc4.chunk.js.map"
+    "main.0b8eafef.css.map": "/lightweight-charts-react-wrapper/static/css/main.0b8eafef.css.map",
+    "main.144cdfb5.js.map": "/lightweight-charts-react-wrapper/static/js/main.144cdfb5.js.map",
+    "961.9eb9e730.chunk.js.map": "/lightweight-charts-react-wrapper/static/js/961.9eb9e730.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.86b585ff.css",
-    "static/js/main.b92e8774.js"
+    "static/css/main.0b8eafef.css",
+    "static/js/main.144cdfb5.js"
   ]
 }

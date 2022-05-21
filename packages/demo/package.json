@@ -20,10 +20,10 @@
     "classnames": "~2.3.1",
     "react-router-dom": "~6.3.0",
     "@types/webpack-env": "~1.17.0",
-    "codesandbox": "~2.2.3",
     "codesandboxer": "~1.0.3",
     "lodash-es": "~4.17.21",
-    "@types/lodash-es": "~4.17.6"
+    "@types/lodash-es": "~4.17.6",
+    "@babel/runtime": "7.17.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -48,8 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/classnames": "~2.3.1"
   }
 }
