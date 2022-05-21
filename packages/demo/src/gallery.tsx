@@ -9,7 +9,7 @@ const components = context.keys().map((request) => {
     // const [file] = /(\w|[-.])+$/.exec(request);
     // const id = repl.samples[file]?.uid;
     return {
-        path: context.resolve(request).slice(2),
+        path: request.slice(2),
         // href: id !== undefined ? `https://svelte.dev/repl/${id}` : undefined,
         constructor: context(request).default,
     }
@@ -27,7 +27,7 @@ export function Gallery() {
                     <div key={component.constructor.name} className={styles.item}>
                         <Sandboxer
                             examplePath={
-                                'packages/demo/' + component.path
+                                'packages/demo/src/samples/' + component.path
                             }
                             gitInfo={{
                                 account: 'trash-and-fire',
