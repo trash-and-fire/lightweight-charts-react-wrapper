@@ -1,13 +1,13 @@
 {
   "name": "lightweight-charts-react-wrapper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf './dist' && tsc && cp '../../README.md' './dist/'",
+    "build": "rimraf './dist' && tsc && cp '../../README.md' '.'",
     "build:watch": "tsc --watch"
   },
   "files": [
