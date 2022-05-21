@@ -73,3 +73,4 @@ common/autoinstallers/*/.npmrc
 # Build folder
 /packages/lib/dist/
 /packages/lib/README.md
+/packages/lib/LICENSE

@@ -8,11 +8,13 @@
   "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf './dist' && tsc && cp '../../README.md' '.'",
+    "build": "rimraf './dist' && tsc && cp '../../README.md' '.' && cp '../../LICENSE' '.'",
     "build:watch": "tsc --watch"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
   ],
   "license": "MIT",
   "repository": {
