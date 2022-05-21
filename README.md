@@ -47,7 +47,7 @@ function App() {
     return (
         <>
             <Chart width={400} height={300} ref={ref}/>
-            <button on:click={() => ref.current?.timeScale().fitContent()}>Fit Content</button>
+            <button onClick={() => ref.current?.timeScale().fitContent()}>Fit Content</button>
         </>
     )
 }
