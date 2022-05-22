@@ -1,43 +1,167 @@
-import React, {useState} from 'react';
-import {LineStyle} from 'lightweight-charts';
+import React, {useLayoutEffect} from 'react';
+import {LastPriceAnimationMode, LineStyle, LineType, LineWidth, PriceLineSource} from 'lightweight-charts';
 import {Link} from 'react-router-dom';
-import {Chart, AreaSeries, PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
+import {AreaSeries, Chart, PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
+import {folder, Leva, LevaInputs, useControls} from 'leva';
 
-import './terminal.css';
+import styles from './terminal.module.css';
 
 export function Terminal() {
-    const [width, setWidth] = useState(600);
-    const [height, setHeight] = useState(300);
-    const [color, setColor] = useState<string>('')
+    useLayoutEffect(() => {
+        document.documentElement.classList.add(styles['app-mode']);
+        return () => document.documentElement.classList.remove(styles['app-mode']);
+    },[]);
+
+    const chart = useControls('Chart', {
+        width: 600,
+        height: 300,
+    });
+
+    const {top, bottom, ...series} = useControls('Series', {
+        lastValueVisible: true,
+        title: {
+            type: LevaInputs.STRING,
+            value: '',
+            disabled: true,
+            optional: true,
+        },
+        priceScaleId: 'right',
+        visible: true,
+        priceLineVisible: false,
+        priceLineSource: {
+            type: LevaInputs.SELECT,
+            value: PriceLineSource.LastBar,
+            options: [PriceLineSource.LastBar, PriceLineSource.LastVisible],
+            render: (get) => get('Series.priceLineVisible'),
+        },
+        priceLineWidth: {
+            type: LevaInputs.SELECT,
+            value: 1 as LineWidth,
+            options: [1,2,3,4] as LineWidth[],
+            render: (get) => get('Series.priceLineVisible'),
+        },
+        priceLineStyle: {
+            type: LevaInputs.SELECT,
+            value: LineStyle.Solid,
+            options: [LineStyle.Solid, LineStyle.Dashed, LineStyle.LargeDashed, LineStyle.Dotted, LineStyle.SparseDotted],
+            disabled: true,
+            optional: true,
+            render: (get) => get('Series.priceLineVisible'),
+        },
+        priceLineColor: {
+            type: LevaInputs.COLOR,
+            value: '#FF0000',
+            disabled: true,
+            optional: true,
+            render: (get) => get('Series.priceLineVisible'),
+        },
+        baseLineVisible: false,
+        baseLineColor: {
+            type: LevaInputs.COLOR,
+            value: '#FF0000',
+            disabled: true,
+            optional: true,
+            render: (get) => get('Series.baseLineVisible'),
+        },
+        baseLineWidth: {
+            type: LevaInputs.SELECT,
+            value: 1 as LineWidth,
+            options: [1,2,3,4] as LineWidth[],
+            render: (get) => get('Series.baseLineVisible'),
+        },
+        baseLineStyle: {
+            type: LevaInputs.SELECT,
+            value: LineStyle.Solid,
+            options: [LineStyle.Solid, LineStyle.Dashed, LineStyle.LargeDashed, LineStyle.Dotted, LineStyle.SparseDotted],
+            disabled: true,
+            optional: true,
+            render: (get) => get('Series.baseLineVisible'),
+        },
+        topColor: {
+            type: LevaInputs.COLOR,
+            value: '#FF0000',
+            disabled: true,
+            optional: true,
+        },
+        bottomColor: {
+            type: LevaInputs.COLOR,
+            value: '#FF0000',
+            disabled: true,
+            optional: true,
+        },
+        lineColor: {
+            type: LevaInputs.COLOR,
+            value: '#FF0000',
+            disabled: true,
+            optional: true,
+        },
+        scaleMargins: folder({
+            top: {
+                min: 0,
+                max: 1,
+                value: 0.1,
+            },
+            bottom: {
+                min: 0,
+                max: 1,
+                value: 0.1,
+            },
+        }),
+        lineStyle: {
+            type: LevaInputs.SELECT,
+            value: LineStyle.Solid,
+            options: [LineStyle.Solid, LineStyle.Dashed, LineStyle.LargeDashed, LineStyle.Dotted, LineStyle.SparseDotted],
+            disabled: true,
+            optional: true,
+        },
+        lineWidth: {
+            type: LevaInputs.SELECT,
+            value: 3 as LineWidth,
+            options: [1,2,3,4] as LineWidth[],
+        },
+        lineType: {
+            type: LevaInputs.SELECT,
+            value: LineType.Simple,
+            options: [LineType.Simple, LineType.WithSteps],
+        },
+        crosshairMarkerVisible: true,
+        crosshairMarkerRadius: {
+            value: 4,
+            render: (get) => get('Series.crosshairMarkerVisible'),
+        },
+        crosshairMarkerBorderColor: {
+            type: LevaInputs.COLOR,
+            value: '#FFFFFF',
+            optional: true,
+            disabled: true,
+            render: (get) => get('Series.crosshairMarkerVisible'),
+        },
+        crosshairMarkerBackgroundColor: {
+            type: LevaInputs.COLOR,
+            value: '#FFFFFF',
+            optional: true,
+            disabled: true,
+            render: (get) => get('Series.crosshairMarkerVisible'),
+        },
+        lastPriceAnimation: {
+            type: LevaInputs.SELECT,
+            value: LastPriceAnimationMode.Disabled,
+            options: [LastPriceAnimationMode.Disabled, LastPriceAnimationMode.Continuous, LastPriceAnimationMode.OnDataUpdate],
+        },
+    });
+
     return (
-        <div className="App">
-            <header className="App-header">
+        <main className={styles.main}>
+            <section className={styles.chart}>
                 <Link to="/">
                     Gallery
                 </Link>
-                <br/>
-                <label>
-                    Width: <input type="range" min={300} max={900} value={width} onChange={(e) => setWidth(e.target.valueAsNumber)}/>
-                </label>
-                <br/>
-                <label>
-                    Height: <input type="range" min={150} max={450} value={height} onChange={(e) => setHeight(e.target.valueAsNumber)}/>
-                </label>
-                <br/>
-                <label>
-                    Color: <input type="color" value={color} onChange={(e) => setColor(e.target.value)}/>
-                </label>
-                <br/>
-                <Chart
-                    width={width}
-                    height={height}
-                    onClick={() => console.log('click')}
-                    onCrosshairMove={() => console.log('move')}
-                >
+                <Chart {...chart}>
                     <PriceScale id="left" visible={true}/>
                     <TimeScale onVisibleLogicalRangeChange={console.log}/>
                     <AreaSeries
-                        lineColor={color ? color : undefined}
+                        {...series}
+                        scaleMargins={{top, bottom}}
                         data={[
                             {time: '2018-10-19', value: 52.89},
                             {time: '2018-10-22', value: 51.65},
@@ -60,7 +184,10 @@ export function Terminal() {
                         />
                     </AreaSeries>
                 </Chart>
-            </header>
-        </div>
+            </section>
+            <section className={styles.settings}>
+                <Leva fill={true} flat={true} titleBar={false} collapsed={false}/>
+            </section>
+        </main>
     );
 }
