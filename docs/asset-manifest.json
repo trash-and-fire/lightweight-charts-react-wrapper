@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/lightweight-charts-react-wrapper/static/css/main.f609d84a.css",
-    "main.js": "/lightweight-charts-react-wrapper/static/js/main.71750224.js",
+    "main.js": "/lightweight-charts-react-wrapper/static/js/main.2dce96cc.js",
     "static/js/961.9eb9e730.chunk.js": "/lightweight-charts-react-wrapper/static/js/961.9eb9e730.chunk.js",
     "index.html": "/lightweight-charts-react-wrapper/index.html",
     "main.f609d84a.css.map": "/lightweight-charts-react-wrapper/static/css/main.f609d84a.css.map",
-    "main.71750224.js.map": "/lightweight-charts-react-wrapper/static/js/main.71750224.js.map",
+    "main.2dce96cc.js.map": "/lightweight-charts-react-wrapper/static/js/main.2dce96cc.js.map",
     "961.9eb9e730.chunk.js.map": "/lightweight-charts-react-wrapper/static/js/961.9eb9e730.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f609d84a.css",
-    "static/js/main.71750224.js"
+    "static/js/main.2dce96cc.js"
   ]
 }
