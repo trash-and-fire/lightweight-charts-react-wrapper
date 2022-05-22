@@ -17,7 +17,7 @@
 
 .main {
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 400px;
     height: 100%;
     max-height: 100%;
     overflow: hidden;
