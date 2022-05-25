@@ -1,11 +1,12 @@
 import React, {useLayoutEffect} from 'react';
-import {LastPriceAnimationMode, LineStyle, LineType, LineWidth, PriceLineSource} from 'lightweight-charts';
+import {LineStyle} from 'lightweight-charts';
 import {Link} from 'react-router-dom';
-import {AreaSeries, Chart, PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
-import {folder, Leva, LevaInputs, useControls} from 'leva';
+import {Chart, PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
+import {Leva, useControls} from 'leva';
+
+import {ControlledAreaSeries} from './controlled-area-series';
 
 import styles from './terminal.module.css';
-import {ControlledAreaSeries} from './controlled-area-series';
 
 export function Terminal() {
     useLayoutEffect(() => {
