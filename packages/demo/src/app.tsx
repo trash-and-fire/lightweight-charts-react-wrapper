@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Gallery} from './gallery';
-import {Terminal} from './terminal';
+import {Terminal} from './terminal/terminal';
 
 function App() {
     return (
