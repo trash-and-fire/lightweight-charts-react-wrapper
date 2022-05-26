@@ -1,10 +1,11 @@
 import React, {useLayoutEffect} from 'react';
 import {LineStyle} from 'lightweight-charts';
 import {Link} from 'react-router-dom';
-import {Chart, PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
-import {Leva, useControls} from 'leva';
+import {PriceLine, PriceScale, TimeScale} from 'lightweight-charts-react-wrapper';
+import {Leva} from 'leva';
 
 import {ControlledAreaSeries} from './controlled-area-series';
+import {ControlledChart} from './controlled-chart';
 
 import styles from './terminal.module.css';
 
@@ -14,20 +15,13 @@ export function Terminal() {
         return () => document.documentElement.classList.remove(styles['app-mode']);
     },[]);
 
-    const chart = useControls('Chart', {
-        width: 600,
-        height: 300,
-    });
-
-
-
     return (
         <main className={styles.main}>
             <section className={styles.chart}>
                 <Link to="/">
                     Gallery
                 </Link>
-                <Chart {...chart}>
+                <ControlledChart>
                     <PriceScale id="left" visible={true}/>
                     <TimeScale onVisibleLogicalRangeChange={console.log}/>
                     <ControlledAreaSeries
@@ -52,7 +46,7 @@ export function Terminal() {
                             axisLabelVisible={true}
                         />
                     </ControlledAreaSeries>
-                </Chart>
+                </ControlledChart>
             </section>
             <section className={styles.settings}>
                 <Leva fill={true} flat={true} titleBar={false} collapsed={false}/>
