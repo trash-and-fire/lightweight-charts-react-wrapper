@@ -6,6 +6,7 @@ import {Leva} from 'leva';
 
 import {ControlledAreaSeries} from './controlled-area-series';
 import {ControlledChart} from './controlled-chart';
+import {data} from './data/line-data';
 
 import styles from './terminal.module.css';
 
@@ -24,21 +25,10 @@ export function Terminal() {
                 <ControlledChart>
                     <PriceScale id="left" visible={true}/>
                     <TimeScale onVisibleLogicalRangeChange={console.log}/>
-                    <ControlledAreaSeries
-                        data={[
-                            {time: '2018-10-19', value: 52.89},
-                            {time: '2018-10-22', value: 51.65},
-                            {time: '2018-10-23', value: 51.56},
-                            {time: '2018-10-24', value: 50.19},
-                            {time: '2018-10-25', value: 51.86},
-                            {time: '2018-10-26', value: 51.25},
-                            {time: '2018-10-29', value: 52.23},
-                            {time: '2018-10-30', value: 52.69}
-                        ]}
-                    >
+                    <ControlledAreaSeries data={data}>
                         <PriceLine
                             title="price"
-                            price={51}
+                            price={26}
                             color="#FF0000"
                             lineWidth={1}
                             lineStyle={LineStyle.Solid}
