@@ -8,9 +8,10 @@ import {
     HistogramSeriesPartialOptions,
     LineSeriesPartialOptions,
     BaselineSeriesPartialOptions,
+    SeriesOptionsMap,
 } from 'lightweight-charts';
 
-import {ActionResult} from './utils';
+import {ActionResult, clone, merge} from './utils';
 import {ChartActionResult} from './chart';
 
 export interface AreaSeriesParams extends AreaSeriesPartialOptions {
@@ -60,7 +61,7 @@ export type SeriesActionParams =
 export type SeriesActionResult<T extends SeriesActionParams> = ActionResult<T> & { subject(): ISeriesApi<T['type']>; alive(): boolean }
 
 export function series<T extends SeriesActionParams>(target: ChartActionResult, params: T): SeriesActionResult<T> {
-    let subject = createSeries(target.subject(), params);
+    let [subject, defaults] = createSeries(target.subject(), params);
     let data = params.reactive ? params.data : null;
     let destroyed = false;
 
@@ -83,7 +84,7 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
                 throw new TypeError('Can not change type of series in runtime. Report a bug please');
             }
 
-            subject.applyOptions(nextOptions);
+            subject.applyOptions(merge(clone(defaults), nextOptions));
 
             if (!nextReactive) {
                 data = null;
@@ -106,37 +107,52 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
 function createSeries<T extends SeriesActionParams>(
     chart: IChartApi,
     params: SeriesActionParams
-): ISeriesApi<T['type']> {
+): [
+    series: ISeriesApi<T['type']>,
+    defaults: SeriesOptionsMap[T['type']]
+] {
     switch (params.type) {
         case 'Area': {
             const series = chart.addAreaSeries(omit(params));
+            const defaults = series.options();
+            series.applyOptions(omit(params));
             series.setData(params.data);
-            return series;
+            return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Bar': {
             const series = chart.addBarSeries(omit(params));
+            const defaults = series.options();
+            series.applyOptions(omit(params));
             series.setData(params.data);
-            return series;
+            return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Candlestick': {
             const series = chart.addCandlestickSeries(omit(params));
+            const defaults = series.options();
+            series.applyOptions(omit(params));
             series.setData(params.data);
-            return series;
+            return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Histogram': {
             const series = chart.addHistogramSeries(omit(params));
+            const defaults = series.options();
+            series.applyOptions(omit(params));
             series.setData(params.data);
-            return series;
+            return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Line': {
             const series = chart.addLineSeries(omit(params));
+            const defaults = series.options();
+            series.applyOptions(omit(params));
             series.setData(params.data);
-            return series;
+            return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Baseline': {
             const series = chart.addBaselineSeries(omit(params));
+            const defaults = series.options();
+            series.applyOptions(omit(params));
             series.setData(params.data);
-            return series;
+            return [series, defaults as SeriesOptionsMap[T['type']]];
         }
     }
 }
