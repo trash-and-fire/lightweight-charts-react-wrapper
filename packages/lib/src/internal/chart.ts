@@ -4,7 +4,7 @@ import {
     IChartApi,
     MouseEventHandler,
 } from 'lightweight-charts';
-import {ActionResult} from './utils';
+import {ActionResult, clone, merge} from './utils';
 
 import {createChart} from 'lightweight-charts';
 
@@ -29,7 +29,11 @@ export function chart(
     let height = options?.height ?? 0;
     let destroyed = false;
 
-    const chart = createChart(node, options);
+    const chart = createChart(node);
+    // TODO: write an issue. Chart returns live collection of options.
+    const defaults = clone(chart.options());
+
+    chart.applyOptions(options);
 
     if (onClick) {
         chart.subscribeClick(onClick);
@@ -54,7 +58,7 @@ export function chart(
             } = nextParams;
 
             if (nextOptions) {
-                chart.applyOptions(nextOptions);
+                chart.applyOptions(merge(clone(defaults), nextOptions));
 
                 if (nextOptions.width !== undefined && nextOptions.width !== width
                     || nextOptions.height !== undefined && nextOptions.height !== height
