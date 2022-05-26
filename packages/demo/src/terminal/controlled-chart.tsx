@@ -8,7 +8,7 @@ import {
     LineStyle,
     LineWidth,
     TrackingModeExitMode,
-    VertAlign
+    VertAlign,
 } from 'lightweight-charts';
 
 export interface ControlledChartProps {
@@ -16,124 +16,10 @@ export interface ControlledChartProps {
 }
 
 export function ControlledChart(props: ControlledChartProps): JSX.Element {
-    const size = useControls('Size', {
-        width: 600,
-        height: 300,
-    });
-
-    const watermark = useControls('Watermark', {
-        visible: {
-            value: false,
-            label: 'Visible',
-        },
-        text: {
-            value: '',
-            label: 'Text',
-            render: (get) => get('Watermark.visible'),
-        },
-        color: {
-            value: 'rgba(0, 0, 0, 0.5)',
-            label: '-- color',
-            optional: true,
-            disabled: true,
-            render: (get) => get('Watermark.visible'),
-        },
-        fontSize: {
-            value: 48, label: '-- font size',
-            optional: true,
-            disabled: true,
-            render: (get) => get('Watermark.visible'),
-        },
-        fontFamily: {
-            value: `'Trebuchet MS', Roboto, Ubuntu, sans-serif`,
-            label: '-- font family',
-            optional: true,
-            disabled: true,
-            render: (get) => get('Watermark.visible'),
-
-        },
-        fontStyle: {
-            value: '',
-            label: '-- font style',
-            optional: true,
-            disabled: true,
-            render: (get) => get('Watermark.visible'),
-        },
-        horzAlign: {
-            value: 'center' as const,
-            label: '-- horizontal align',
-            options: ['left', 'right', 'center'] as const,
-            optional: true,
-            disabled: true,
-            render: (get) => get('Watermark.visible'),
-        },
-        vertAlign: {
-            value: 'center' as const,
-            label: '-- vertical align',
-            options: ['left', 'right', 'center'] as const,
-            optional: true,
-            disabled: true,
-            render: (get) => get('Watermark.visible'),
-        },
-    })
-
-    const {
-        backgroundType,
-        backgroundBottomColor,
-        backgroundTopColor,
-        backgroundColor,
-        ...layout
-    } = useControls('Layout', {
-        backgroundType: {
-            label: 'Background:',
-            value: ColorType.Solid,
-            options: {
-                'Solid': ColorType.Solid,
-                'Vertical gradient': ColorType.VerticalGradient,
-            }
-        },
-        backgroundColor: {
-            label: '-- color',
-            value: '#FFFFFF',
-            render: (get) => get('Layout.backgroundType') === ColorType.Solid,
-        },
-        backgroundTopColor: {
-            label: '-- top color',
-            value: '#FFFFFF',
-            render: (get) => get('Layout.backgroundType') === ColorType.VerticalGradient,
-        },
-        backgroundBottomColor: {
-            label: '-- bottom color',
-            value: '#FFFFFF',
-            render: (get) => get('Layout.backgroundType') === ColorType.VerticalGradient,
-        },
-        textColor: {
-            label: 'Text color',
-            value: '#292929',
-            optional: true,
-            disabled: true,
-        },
-        fontSize: {
-            label: 'Font size',
-            value: 10,
-            optional: true,
-            disabled: true,
-        },
-        fontFamily: {
-            label: 'Font family',
-            value: `'Trebuchet MS', Roboto, Ubuntu, sans-serif`,
-            optional: true,
-            disabled: true,
-        },
-    });
-    const background = backgroundType === ColorType.Solid ? {
-        type: ColorType.Solid,
-        color: backgroundColor,
-    } : {
-        type: ColorType.VerticalGradient,
-        topColor: backgroundTopColor,
-        bottomColor: backgroundBottomColor,
-    };
+    const size = useSizeControls('Size');
+    const watermark = useWatermarkControls('Watermark');
+    const layout = useLayoutControls('Layout');
+    const crosshair = useCrosshairControls('Crosshair');
     //
     // const leftPriceScale = useControls({
     //     	/**
@@ -298,6 +184,161 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
     // tickMarkFormatter?: TickMarkFormatter,
     // })
     //
+
+    const grid = useGridControls('Grid');
+    const localization = useLocalizationControls('Localization');
+    const handleScroll = useHandleScrollControls('Handle scroll');
+    const handleScale = useHandleScaleControls('Handle scale');
+    const kineticScroll = useKineticScrollControls('Kinetic scroll');
+    const trackingMode = useTrackingModeControls('Tracking mode');
+
+    return (
+        <Chart
+            {...props}
+            {...size}
+            watermark={watermark}
+            layout={layout}
+            trackingMode={trackingMode}
+            crosshair={crosshair}
+            grid={grid}
+            kineticScroll={kineticScroll}
+            handleScale={handleScale}
+            handleScroll={handleScroll}
+            localization={localization}
+        />
+    );
+}
+
+function useSizeControls(name: string) {
+    return useControls(name, {
+        width: 600,
+        height: 300,
+    });
+}
+
+function useWatermarkControls(name: string) {
+    const watermark = useControls(name, {
+        visible: {
+            value: false,
+            label: 'Visible',
+        },
+        text: {
+            value: '',
+            label: 'Text',
+            render: (get) => get(`${name}.visible`),
+        },
+        color: {
+            value: 'rgba(0, 0, 0, 0.5)',
+            label: '-- color',
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.visible`),
+        },
+        fontSize: {
+            value: 48, label: '-- font size',
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.visible`),
+        },
+        fontFamily: {
+            value: `'Trebuchet MS', Roboto, Ubuntu, sans-serif`,
+            label: '-- font family',
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.visible`),
+
+        },
+        fontStyle: {
+            value: '',
+            label: '-- font style',
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.visible`),
+        },
+        horzAlign: {
+            value: 'center' as const,
+            label: '-- horizontal align',
+            options: ['left', 'right', 'center'] as const,
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.visible`),
+        },
+        vertAlign: {
+            value: 'center' as const,
+            label: '-- vertical align',
+            options: ['left', 'right', 'center'] as const,
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.visible`),
+        },
+    });
+
+    return {...watermark, vertAlign: watermark.vertAlign as VertAlign, horzAlign: watermark.horzAlign as HorzAlign};
+}
+
+function useLayoutControls(name: string) {
+    const {
+        backgroundType,
+        backgroundBottomColor,
+        backgroundTopColor,
+        backgroundColor,
+        ...layout
+    } = useControls(name, {
+        backgroundType: {
+            label: 'Background:',
+            value: ColorType.Solid,
+            options: {
+                'Solid': ColorType.Solid,
+                'Vertical gradient': ColorType.VerticalGradient,
+            }
+        },
+        backgroundColor: {
+            label: '-- color',
+            value: '#FFFFFF',
+            render: (get) => get(`${name}.backgroundType`) === ColorType.Solid,
+        },
+        backgroundTopColor: {
+            label: '-- top color',
+            value: '#FFFFFF',
+            render: (get) => get(`${name}.backgroundType`) === ColorType.VerticalGradient,
+        },
+        backgroundBottomColor: {
+            label: '-- bottom color',
+            value: '#FFFFFF',
+            render: (get) => get(`${name}.backgroundType`) === ColorType.VerticalGradient,
+        },
+        textColor: {
+            label: 'Text color',
+            value: '#292929',
+            optional: true,
+            disabled: true,
+        },
+        fontSize: {
+            label: 'Font size',
+            value: 10,
+            optional: true,
+            disabled: true,
+        },
+        fontFamily: {
+            label: 'Font family',
+            value: `'Trebuchet MS', Roboto, Ubuntu, sans-serif`,
+            optional: true,
+            disabled: true,
+        },
+    });
+    const background = backgroundType === ColorType.Solid ? {
+        type: ColorType.Solid,
+        color: backgroundColor,
+    } : {
+        type: ColorType.VerticalGradient,
+        topColor: backgroundTopColor,
+        bottomColor: backgroundBottomColor,
+    };
+
+    return {...layout, background};
+}
+
+function useCrosshairControls(name: string) {
     const {
         vertLineVisible,
         vertLineColor,
@@ -312,7 +353,7 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
         horzLineLabelVisible,
         horzLineLabelBackgroundColor,
         ...crosshair
-    } = useControls('Crosshair', {
+    } = useControls(name, {
         mode: {
             label: 'Mode',
             value: CrosshairMode.Magnet,
@@ -345,27 +386,27 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
             },
             disabled: true,
             optional: true,
-            render: (get) => get('Crosshair.vertLineVisible'),
+            render: (get) => get(`${name}.vertLineVisible`),
         },
         vertLineWidth: {
             value: 1 as LineWidth,
             label: '-- width',
-            options: [1,2,3,4] as LineWidth[],
+            options: [1, 2, 3, 4] as LineWidth[],
             disabled: true,
             optional: true,
-            render: (get) => get('Crosshair.vertLineVisible'),
+            render: (get) => get(`${name}.vertLineVisible`),
         },
         vertLineLabelVisible: {
             label: '-- show label',
             value: true,
-            render: (get) => get('Crosshair.vertLineVisible'),
+            render: (get) => get(`${name}.vertLineVisible`),
         },
         vertLineLabelBackgroundColor: {
             label: '-- label background',
             value: '#FF0000',
             optional: true,
             disabled: true,
-            render: (get) => get('Crosshair.vertLineVisible'),
+            render: (get) => get(`${name}.vertLineVisible`),
         },
         horzLineVisible: {
             label: 'Show horizontal line',
@@ -389,30 +430,30 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
             },
             disabled: true,
             optional: true,
-            render: (get) => get('Crosshair.horzLineVisible'),
+            render: (get) => get(`${name}.horzLineVisible`),
         },
         horzLineWidth: {
             value: 1 as LineWidth,
             label: '-- width',
-            options: [1,2,3,4] as LineWidth[],
+            options: [1, 2, 3, 4] as LineWidth[],
             disabled: true,
             optional: true,
-            render: (get) => get('Crosshair.horzLineVisible'),
+            render: (get) => get(`${name}.horzLineVisible`),
         },
         horzLineLabelVisible: {
             label: '-- show label',
             value: true,
-            render: (get) => get('Crosshair.horzLineVisible'),
+            render: (get) => get(`${name}.horzLineVisible`),
         },
         horzLineLabelBackgroundColor: {
             label: '-- label background',
             value: '#FF0000',
             optional: true,
             disabled: true,
-            render: (get) => get('Crosshair.horzLineVisible'),
+            render: (get) => get(`${name}.horzLineVisible`),
         },
     })
-    
+
     const vertLine = {
         visible: vertLineVisible,
         color: vertLineColor,
@@ -421,7 +462,7 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
         labelVisible: vertLineLabelVisible,
         labelBackgroundColor: vertLineLabelBackgroundColor,
     };
-    
+
     const horzLine = {
         visible: horzLineVisible,
         color: horzLineColor,
@@ -430,123 +471,12 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
         labelVisible: horzLineLabelVisible,
         labelBackgroundColor: horzLineLabelBackgroundColor,
     };
-    //
-    // const grid = useControls({
-    //     	/**
-    //  * Vertical grid line options.
-    //  */
-    // vertLines: GridLineOptions,
-    // /**
-    //  * Horizontal grid line options.
-    //  */
-    // horzLines: GridLineOptions,
-    // })
-    //
-    // const localization = useControls({
-    //     	/**
-    //  * Current locale used to format dates. Uses the browser's language settings by default.
-    //  *
-    //  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation
-    //  * @defaultValue `navigator.language`
-    //  */
-    // locale: string,
-    // /**
-    //  * Override formatting of the price scale crosshair label. Can be used for cases that can't be covered with built-in price formats.
-    //  *
-    //  * @see {@link PriceFormatCustom}
-    //  * @defaultValue `undefined`
-    //  */
-    // priceFormatter?: PriceFormatterFn,
-    // /**
-    //  * Override formatting of the time scale crosshair label.
-    //  *
-    //  * @defaultValue `undefined`
-    //  */
-    // timeFormatter?: TimeFormatterFn,
-    // /**
-    //  * Date formatting string.
-    //  *
-    //  * Can contain `yyyy`, `yy`, `MMMM`, `MMM`, `MM` and `dd` literals which will be replaced with corresponding date's value.
-    //  *
-    //  * Ignored if {@link timeFormatter} has been specified.
-    //  *
-    //  * @defaultValue `'dd MMM \'yy'`
-    //  */
-    // dateFormat: string,
-    // })
-    //
-    // const handleScroll = useControls({
-    //     	/**
-    //  * Enable scrolling with the mouse wheel.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // mouseWheel: boolean,
-    // /**
-    //  * Enable scrolling by holding down the left mouse button and moving the mouse.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // pressedMouseMove: boolean,
-    // /**
-    //  * Enable horizontal touch scrolling.
-    //  *
-    //  * When enabled the chart handles touch gestures that would normally scroll the webpage horizontally.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // horzTouchDrag: boolean,
-    // /**
-    //  * Enable vertical touch scrolling.
-    //  *
-    //  * When enabled the chart handles touch gestures that would normally scroll the webpage vertically.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // vertTouchDrag: boolean,
-    // })
-    //
-    // const handleScale = useControls({
-    //     	/**
-    //  * Enable scaling with the mouse wheel.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // mouseWheel: boolean,
-    // /**
-    //  * Enable scaling with pinch/zoom gestures.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // pinch: boolean,
-    // /**
-    //  * Enable scaling the price and/or time scales by holding down the left mouse button and moving the mouse.
-    //  */
-    // axisPressedMouseMove: AxisPressedMouseMoveOptions | boolean,
-    // /**
-    //  * Enable resetting scaling by double-clicking the left mouse button.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // axisDoubleClickReset: boolean,
-    // })
-    //
-    // const kineticScroll = useControls({
-    //     	/**
-    //  * Enable kinetic scroll with touch gestures.
-    //  *
-    //  * @defaultValue `true`
-    //  */
-    // touch: boolean,
-    // /**
-    //  * Enable kinetic scroll with the mouse.
-    //  *
-    //  * @defaultValue `false`
-    //  */
-    // mouse: boolean,
-    // })
-    //
-    const trackingMode = useControls('Tracking Mode', {
+
+    return {...crosshair, vertLine, horzLine};
+}
+
+function useTrackingModeControls(name: string) {
+    return useControls(name, {
         exitMode: {
             label: 'Exit mode',
             value: TrackingModeExitMode.OnNextTap,
@@ -558,15 +488,162 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
             disabled: true,
         },
     })
+}
 
-    return (
-        <Chart
-            {...props}
-            {...size}
-            watermark={{...watermark, vertAlign: watermark.vertAlign as VertAlign, horzAlign: watermark.horzAlign as HorzAlign}}
-            layout={{...layout, background}}
-            trackingMode={trackingMode}
-            crosshair={{...crosshair, vertLine, horzLine}}
-        />
-    );
+function useGridControls(name: string) {
+    const grid = useControls(name, {
+        vertLinesVisible: {
+            label: 'Show vertical lines:',
+            value: true,
+        },
+        vertLinesColor: {
+            label: '-- color',
+            value: '#FF0000',
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.vertLinesVisible`),
+        },
+        vertLinesStyle: {
+            label: '-- style',
+            value: LineStyle.Dashed,
+            options: {
+                Solid: LineStyle.Solid,
+                Dashed: LineStyle.Dashed,
+                'Large dashed': LineStyle.LargeDashed,
+                Dotted: LineStyle.Dotted,
+                'Sparse dotted': LineStyle.SparseDotted,
+            },
+            disabled: true,
+            optional: true,
+            render: (get) => get(`${name}.vertLinesVisible`),
+        },
+
+        horzLinesVisible: {
+            label: 'Show horizontal lines:',
+            value: true,
+        },
+        horzLinesColor: {
+            label: '-- color',
+            value: '#FF0000',
+            optional: true,
+            disabled: true,
+            render: (get) => get(`${name}.horzLinesVisible`),
+        },
+        horzLinesStyle: {
+            label: '-- style',
+            value: LineStyle.Dashed,
+            options: {
+                Solid: LineStyle.Solid,
+                Dashed: LineStyle.Dashed,
+                'Large dashed': LineStyle.LargeDashed,
+                Dotted: LineStyle.Dotted,
+                'Sparse dotted': LineStyle.SparseDotted,
+            },
+            disabled: true,
+            optional: true,
+            render: (get) => get(`${name}.horzLinesVisible`),
+        },
+    });
+
+    return {
+        vertLines: {
+            visible: grid.vertLinesVisible,
+            style: grid.vertLinesStyle,
+            color: grid.vertLinesColor,
+        },
+        horzLines: {
+            visible: grid.horzLinesVisible,
+            style: grid.horzLinesStyle,
+            color: grid.horzLinesColor,
+        },
+    };
+}
+
+function useKineticScrollControls(name: string) {
+    return useControls(name, {
+        touch: {
+            label: 'Touch',
+            value: true,
+        },
+        mouse: {
+            label: 'Mouse',
+            value: false,
+        },
+    });
+}
+
+function useHandleScaleControls(name: string) {
+    const {
+        axisPressedMouseMoveTime,
+        axisPressedMouseMovePrice,
+        ...handleScale
+    } = useControls(name, {
+        mouseWheel: {
+            label: 'Mouse wheel',
+            value: true,
+        },
+        pinch: {
+            label: 'Pinch',
+            value: true,
+        },
+        axisPressedMouseMoveTime: {
+            label: 'Axis pressed mouse move time',
+            value: true,
+        },
+        axisPressedMouseMovePrice: {
+            label: 'Axis pressed mouse move price',
+            value: true,
+        },
+        axisDoubleClickReset: {
+            label: 'Axis double click reset',
+            value: true,
+        },
+    });
+
+    return {
+        ...handleScale,
+        axisPressedMouseMove: {
+            time: axisPressedMouseMoveTime,
+            price: axisPressedMouseMovePrice,
+        },
+    };
+}
+
+function useHandleScrollControls(name: string) {
+    return useControls(name, {
+        mouseWheel: {
+            label: 'Mouse wheel',
+            value: true,
+        },
+        pressedMouseMove: {
+            label: 'Pressed mouse move',
+            value: true,
+        },
+        horzTouchDrag: {
+            label: 'Horizontal touch drag',
+            value: true,
+        },
+        vertTouchDrag: {
+            label: 'Vertical touch drag',
+            value: true,
+        },
+    });
+}
+
+function useLocalizationControls(name: string) {
+    return useControls(name, {
+        locale: {
+            label: 'Locale',
+            value: 'de-DE',
+            optional: true,
+            disabled: true,
+        },
+
+        dateFormat: {
+            label: 'Date format',
+            value: `'dd MMM \'yyyy'`,
+            optional: true,
+            disabled: true,
+        },
+    });
 }
