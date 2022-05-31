@@ -65,6 +65,10 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
     let data = params.reactive ? params.data : null;
     let destroyed = false;
 
+    // Never use shorthand properties as default values
+    delete (defaults as any).borderColor;
+    delete (defaults as any).wickColor;
+
     return {
         alive(): boolean {
             return !destroyed;
@@ -84,16 +88,7 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
                 throw new TypeError('Can not change type of series in runtime. Report a bug please');
             }
 
-            const optionsToApply = merge(clone(defaults), nextOptions);
-
-            if (shouldHandleBorderCandlestickOptions(nextOptions)) {
-                delete optionsToApply.borderColor;
-            }
-            if (shouldHandleWickCandlestickOptions(nextOptions)) {
-                delete optionsToApply.wickColor;
-            }
-
-            subject.applyOptions(optionsToApply);
+            subject.applyOptions(merge(clone(defaults), nextOptions));
 
             if (!nextReactive) {
                 data = null;
@@ -169,18 +164,4 @@ function createSeries<T extends SeriesActionParams>(
 function omit<T extends { reactive?: unknown; data: unknown; type: unknown }>(params: T): Omit<T, 'reactive' | 'data' | 'type'> {
     const {reactive, data, type, ...rest} = params;
     return rest;
-}
-
-function shouldHandleBorderCandlestickOptions(next: any): boolean {
-    if (next.borderColor === undefined) {
-        return next.borderUpColor !== undefined || next.borderDownColor !== undefined;
-    }
-    return false;
-}
-
-function shouldHandleWickCandlestickOptions(next: any): boolean {
-    if (next.wickColor === undefined) {
-        return next.wickUpColor !== undefined || next.wickDownColor !== undefined;
-    }
-    return false;
 }
