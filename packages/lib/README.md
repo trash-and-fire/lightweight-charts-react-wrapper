@@ -1,10 +1,11 @@
 # lightweight-charts-react-wrapper
 
-This package is a React wrapper for [lightweight-charts](https://github.com/tradingview/lightweight-charts)
+React.js component-based wrapper for [Lightweight Charts](https://github.com/tradingview/lightweight-charts) to easily create interactive financial charts in React
 
 ## [Demo](https://trash-and-fire.github.io/lightweight-charts-react-wrapper/)
 
-Here are some official examples rewritten on React.
+At the link above, you can find codesandbox examples for any use case, including legend, loading historical data, multiple series on the same chart, moving average, and more.
+Feel free to ask questions and ask for more use cases in the issues tab.
 
 ## Installing
 
