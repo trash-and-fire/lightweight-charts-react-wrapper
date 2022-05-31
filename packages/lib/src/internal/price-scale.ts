@@ -1,5 +1,5 @@
 import {IPriceScaleApi, DeepPartial, PriceScaleOptions} from 'lightweight-charts';
-import {ActionResult} from './utils';
+import {ActionResult, clone, merge} from './utils';
 import {ChartActionResult} from './chart';
 
 export type PriceScaleActionResult = ActionResult<PriceScaleParams> & { subject(): IPriceScaleApi }
@@ -15,7 +15,7 @@ export function priceScale(target: ChartActionResult, params: PriceScaleParams):
     } = params;
 
     let subject = target.subject().priceScale(id);
-
+    const defaults = clone(subject.options());
     subject.applyOptions(options);
 
     return {
@@ -36,7 +36,7 @@ export function priceScale(target: ChartActionResult, params: PriceScaleParams):
             if (nextOptions !== options) {
                 options = nextOptions;
                 if (options) {
-                    subject.applyOptions(options);
+                    subject.applyOptions(merge(clone(defaults), options));
                 }
             }
         },

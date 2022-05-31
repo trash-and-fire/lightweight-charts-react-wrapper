@@ -6,7 +6,7 @@ import {
     TimeRangeChangeEventHandler,
     TimeScaleOptions
 } from 'lightweight-charts';
-import {ActionResult} from './utils';
+import {ActionResult, clone, merge} from './utils';
 import {ChartActionResult} from './chart';
 
 export interface TimeScaleParams extends DeepPartial<TimeScaleOptions> {
@@ -26,6 +26,7 @@ export function timeScale(target: ChartActionResult, params: TimeScaleParams): T
     } = params;
 
     const subject = target.subject().timeScale();
+    const defaults = clone(subject.options());
 
     subject.applyOptions(options);
 
@@ -54,7 +55,7 @@ export function timeScale(target: ChartActionResult, params: TimeScaleParams): T
             if (nextOptions !== options) {
                 options = nextOptions;
                 if (options) {
-                    subject.applyOptions(options);
+                    subject.applyOptions(merge(clone(defaults), options));
                 }
             }
 
