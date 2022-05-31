@@ -8,7 +8,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf './dist' && tsc && cp '../../README.md' '.' && cp '../../LICENSE' '.'",
+    "build": "rimraf './dist' && tsc",
     "build:watch": "tsc --watch"
   },
   "files": [
