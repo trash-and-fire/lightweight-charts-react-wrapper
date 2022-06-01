@@ -18,7 +18,7 @@ export interface BaselineSeriesProps extends BaselineSeriesPartialOptions {
     children?: ReactNode;
 }
 
-export const BaselineSeries = memo(forwardRef((props: BaselineSeriesProps, ref: ForwardedRef<ISeriesApi<'Baseline'>>) => {
+export const BaselineSeries = memo(forwardRef(function BaselineSeries(props: BaselineSeriesProps, ref: ForwardedRef<ISeriesApi<'Baseline'>>) {
     const {children, ...rest} = props;
 
     const context = useBaselineSeriesAction(rest, ref);

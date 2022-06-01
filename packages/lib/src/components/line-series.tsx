@@ -18,7 +18,7 @@ export interface LineSeriesProps extends LineSeriesPartialOptions {
     children?: ReactNode;
 }
 
-export const LineSeries = memo(forwardRef((props: LineSeriesProps, ref: ForwardedRef<ISeriesApi<'Line'>>) => {
+export const LineSeries = memo(forwardRef(function LineSeries(props: LineSeriesProps, ref: ForwardedRef<ISeriesApi<'Line'>>) {
     const {children, ...rest} = props;
 
     const context = useLineSeriesAction(rest, ref);

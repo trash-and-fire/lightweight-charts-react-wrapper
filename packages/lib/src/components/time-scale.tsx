@@ -27,7 +27,7 @@ export interface TimeScaleProps extends DeepPartial<TimeScaleOptions> {
     onSizeChange?: SizeChangeEventHandler;
 }
 
-export const TimeScale = memo(forwardRef((props: TimeScaleProps, ref: ForwardedRef<ITimeScaleApi>) => {
+export const TimeScale = memo(forwardRef(function TimeScale(props: TimeScaleProps, ref: ForwardedRef<ITimeScaleApi>) {
     useTimeScaleAction(props, ref);
 
     return null;

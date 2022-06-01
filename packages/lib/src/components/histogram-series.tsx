@@ -18,7 +18,7 @@ export interface HistogramSeriesProps extends HistogramSeriesPartialOptions {
     children?: ReactNode;
 }
 
-export const HistogramSeries = memo(forwardRef((props: HistogramSeriesProps, ref: ForwardedRef<ISeriesApi<'Histogram'>>) => {
+export const HistogramSeries = memo(forwardRef(function HistogramSeries(props: HistogramSeriesProps, ref: ForwardedRef<ISeriesApi<'Histogram'>>) {
     const {children, ...rest} = props;
 
     const context = useHistogramSeriesAction(rest, ref);

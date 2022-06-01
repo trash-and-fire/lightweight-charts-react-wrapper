@@ -18,7 +18,7 @@ export interface CandlestickSeriesProps extends CandlestickSeriesPartialOptions 
     children?: ReactNode;
 }
 
-export const CandlestickSeries = memo(forwardRef((props: CandlestickSeriesProps, ref: ForwardedRef<ISeriesApi<'Candlestick'>>) => {
+export const CandlestickSeries = memo(forwardRef(function CandlestickSeries(props: CandlestickSeriesProps, ref: ForwardedRef<ISeriesApi<'Candlestick'>>) {
     const {children, ...rest} = props;
 
     const context = useCandlestickSeriesAction(rest, ref);

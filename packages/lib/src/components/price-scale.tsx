@@ -19,7 +19,7 @@ export interface PriceScaleProps extends DeepPartial<PriceScaleOptions> {
     children?: ReactNode;
 }
 
-export const PriceScale = memo(forwardRef((props: PriceScaleProps, ref: ForwardedRef<IPriceScaleApi>) => {
+export const PriceScale = memo(forwardRef(function PriceScale(props: PriceScaleProps, ref: ForwardedRef<IPriceScaleApi>) {
     usePriceScaleAction(props, ref);
 
     return null;

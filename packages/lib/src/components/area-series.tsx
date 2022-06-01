@@ -18,7 +18,7 @@ export interface AreaSeriesProps extends AreaSeriesPartialOptions {
     children?: ReactNode;
 }
 
-export const AreaSeries = memo(forwardRef((props: AreaSeriesProps, ref: ForwardedRef<ISeriesApi<'Area'>>) => {
+export const AreaSeries = memo(forwardRef(function AreaSeries(props: AreaSeriesProps, ref: ForwardedRef<ISeriesApi<'Area'>>) {
     const {children, ...rest} = props;
 
     const context = useAreaSeriesAction(rest, ref);

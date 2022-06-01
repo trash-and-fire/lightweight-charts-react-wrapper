@@ -22,7 +22,7 @@ export interface ChartProps extends DeepPartial<ChartOptions> {
     onCrosshairMove?: MouseEventHandler;
 }
 
-export const Chart = memo(forwardRef((props: ChartProps, ref: ForwardedRef<IChartApi>) => {
+export const Chart = memo(forwardRef(function Chart(props: ChartProps, ref: ForwardedRef<IChartApi>) {
     const [element, setElement] = useState<HTMLElement | null>(null);
     const handleContainerRef = useCallback((ref: HTMLElement | null) => setElement(ref), []);
 
@@ -33,7 +33,7 @@ export const Chart = memo(forwardRef((props: ChartProps, ref: ForwardedRef<IChar
     )
 }));
 
-const ChartComponent = memo(forwardRef((props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>) => {
+const ChartComponent = memo(forwardRef(function ChartComponent(props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>) {
     const {children} = props;
 
     const context = useChartAction(props, ref);

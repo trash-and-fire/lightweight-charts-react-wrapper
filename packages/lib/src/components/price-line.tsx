@@ -17,7 +17,7 @@ export interface PriceLineProps extends PriceLineOptions {
     children?: ReactNode;
 }
 
-export const PriceLine = memo(forwardRef((props: PriceLineProps, ref: ForwardedRef<IPriceLine>) => {
+export const PriceLine = memo(forwardRef(function PriceLine(props: PriceLineProps, ref: ForwardedRef<IPriceLine>) {
     usePriceLineAction(props, ref);
 
     return null;

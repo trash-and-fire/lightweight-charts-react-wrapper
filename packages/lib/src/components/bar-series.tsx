@@ -18,7 +18,7 @@ export interface BarSeriesProps extends BarSeriesPartialOptions {
     children?: ReactNode;
 }
 
-export const BarSeries = memo(forwardRef((props: BarSeriesProps, ref: ForwardedRef<ISeriesApi<'Bar'>>) => {
+export const BarSeries = memo(forwardRef(function BarSeries(props: BarSeriesProps, ref: ForwardedRef<ISeriesApi<'Bar'>>) {
     const {children, ...rest} = props;
 
     const context = useBarSeriesAction(rest, ref);
