@@ -1,5 +1,5 @@
 import React from 'react';
-import {Chart, AreaSeries, HistogramSeries} from 'lightweight-charts-react-wrapper';
+import {Chart, AreaSeries, HistogramSeries, PriceScale} from 'lightweight-charts-react-wrapper';
 
 export default function VolumeStudy() {
     return (
@@ -15,11 +15,11 @@ export default function VolumeStudy() {
                 />
                 <HistogramSeries
                     data={volume}
-                    priceScaleId=""
+                    priceScaleId="overlay"
                     color="#26a69a"
                     priceFormat={{type: 'volume'}}
-                    scaleMargins={{top: 0.8, bottom: 0}}
                 />
+                <PriceScale id="overlay" scaleMargins={{top: 0.8, bottom: 0}}/>
             </Chart>
         </>
     );

@@ -117,42 +117,42 @@ function createSeries<T extends SeriesActionParams>(
 ] {
     switch (params.type) {
         case 'Area': {
-            const series = chart.addAreaSeries(omit(params));
+            const series = chart.addAreaSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Bar': {
-            const series = chart.addBarSeries(omit(params));
+            const series = chart.addBarSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Candlestick': {
-            const series = chart.addCandlestickSeries(omit(params));
+            const series = chart.addCandlestickSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Histogram': {
-            const series = chart.addHistogramSeries(omit(params));
+            const series = chart.addHistogramSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Line': {
-            const series = chart.addLineSeries(omit(params));
+            const series = chart.addLineSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Baseline': {
-            const series = chart.addBaselineSeries(omit(params));
+            const series = chart.addBaselineSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);

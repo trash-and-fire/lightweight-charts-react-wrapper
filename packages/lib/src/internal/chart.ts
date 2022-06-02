@@ -31,7 +31,15 @@ export function chart(
 
     const chart = createChart(node);
     // TODO: write an issue. Chart returns live collection of options.
-    const defaults = clone(chart.options());
+    const defaults: Partial<ChartOptions> = clone(chart.options());
+
+    /*
+     Following properties override series and price scales properties.
+     It is undesired and uncontrolled behavior. It is better to never save them as defaults.
+     */
+    delete defaults.overlayPriceScales;
+    delete defaults.leftPriceScale;
+    delete defaults.rightPriceScale;
 
     chart.applyOptions(options);
 
