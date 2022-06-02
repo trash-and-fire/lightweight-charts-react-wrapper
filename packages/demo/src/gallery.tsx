@@ -43,7 +43,7 @@ export function Gallery() {
                                 '@babel/runtime': '*',
                                 'classnames': '*',
                             }}
-                            template="create-react-app-typescript"
+                            template="create-react-app"
                         >
                             {({ onClick }) => (
                                 <a className={styles.link} href="#" target="_blank" onClick={onClick} title="Show in REPL">
