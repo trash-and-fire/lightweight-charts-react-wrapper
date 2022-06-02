@@ -1,4 +1,5 @@
 # lightweight-charts-react-wrapper
+![bundle-size](https://badgen.net/bundlephobia/minzip/lightweight-charts-react-wrapper/)
 
 React.js component-based wrapper for [Lightweight Charts](https://github.com/tradingview/lightweight-charts) to easily create interactive financial charts in React
 
