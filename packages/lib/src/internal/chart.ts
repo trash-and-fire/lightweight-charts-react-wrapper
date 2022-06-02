@@ -34,12 +34,13 @@ export function chart(
     const defaults: Partial<ChartOptions> = clone(chart.options());
 
     /*
-     Following properties override series and price scales properties.
+     Following properties override series, price scale and time scale properties.
      It is undesired and uncontrolled behavior. It is better to never save them as defaults.
      */
     delete defaults.overlayPriceScales;
     delete defaults.leftPriceScale;
     delete defaults.rightPriceScale;
+    delete defaults.timeScale;
 
     chart.applyOptions(options);
 
