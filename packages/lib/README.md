@@ -16,7 +16,7 @@ npm install lightweight-charts lightweight-charts-react-wrapper
 ## Usage
 
 ```tsx
-import {Chart, LineSeries} from "packages/lib/dist/index";
+import {Chart, LineSeries} from "lightweight-charts-react-wrapper";
 
 const data = [
     {time: '2019-04-11', value: 80.01},
