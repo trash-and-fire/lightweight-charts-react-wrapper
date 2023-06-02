@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
-    "lightweight-charts": "^3.8.0",
+    "lightweight-charts": "4.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "rimraf": "^2.6.2",
@@ -48,7 +48,7 @@
     "tslib": "~2.4.0"
   },
   "peerDependencies": {
-    "lightweight-charts": ">=3.8.0",
+    "lightweight-charts": ">=4.0.0",
     "tslib": "*",
     "react": ">=16.8.0"
   }
