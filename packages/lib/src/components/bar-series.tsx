@@ -4,7 +4,7 @@ import {
     memo,
     ReactNode,
 } from 'react';
-import {BarSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
+import {BarSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap, SeriesMarker, Time} from 'lightweight-charts';
 
 import {SeriesContext} from './internal/series-context.js';
 import {createSeriesHook} from './internal/create-series-hook.js';
@@ -14,6 +14,7 @@ const useBarSeriesAction = createSeriesHook<BarSeriesParams>('Bar');
 
 export interface BarSeriesProps extends BarSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Bar'][];
+    markers?: SeriesMarker<Time>[];
     reactive?: boolean;
     children?: ReactNode;
 }

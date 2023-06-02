@@ -4,7 +4,7 @@ import {
     memo,
     ReactNode,
 } from 'react';
-import {LineSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
+import {LineSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap, SeriesMarker, Time} from 'lightweight-charts';
 
 import {SeriesContext} from './internal/series-context.js';
 import {createSeriesHook} from './internal/create-series-hook.js';
@@ -14,6 +14,7 @@ const useLineSeriesAction = createSeriesHook<LineSeriesParams>('Line');
 
 export interface LineSeriesProps extends LineSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Line'][];
+    markers?: SeriesMarker<Time>[];
     reactive?: boolean;
     children?: ReactNode;
 }

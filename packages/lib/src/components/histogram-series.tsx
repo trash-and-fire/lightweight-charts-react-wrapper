@@ -4,7 +4,7 @@ import {
     memo,
     ReactNode,
 } from 'react';
-import {HistogramSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
+import {HistogramSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap, SeriesMarker, Time} from 'lightweight-charts';
 
 import {SeriesContext} from './internal/series-context.js';
 import {createSeriesHook} from './internal/create-series-hook.js';
@@ -14,6 +14,7 @@ const useHistogramSeriesAction = createSeriesHook<HistogramSeriesParams>('Histog
 
 export interface HistogramSeriesProps extends HistogramSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Histogram'][];
+    markers?: SeriesMarker<Time>[];
     reactive?: boolean;
     children?: ReactNode;
 }
