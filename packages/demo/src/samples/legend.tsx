@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {BarPrice, ISeriesApi, LineWidth, MouseEventParams} from 'lightweight-charts';
+import {ISeriesApi, LineWidth, MouseEventParams, LineData} from 'lightweight-charts';
 import {Chart, AreaSeries} from 'lightweight-charts-react-wrapper';
 
 import styles from './legend.module.css';
@@ -13,8 +13,8 @@ export default function Legend() {
             return;
         }
         if (param.time) {
-            const price = param.seriesPrices.get(series.current) as BarPrice;
-            setLegend('ETC USD 7D VWAP' + '  ' + price.toFixed(2));
+            const {value} = param.seriesData.get(series.current) as LineData;
+            setLegend('ETC USD 7D VWAP' + '  ' + value.toFixed(2));
         } else {
             setLegend('ETC USD 7D VWAP');
         }

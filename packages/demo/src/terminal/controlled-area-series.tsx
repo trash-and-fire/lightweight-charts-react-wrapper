@@ -1,4 +1,4 @@
-import {folder, LevaInputs, useControls} from 'leva';
+import {LevaInputs, useControls} from 'leva';
 import {LastPriceAnimationMode, LineStyle, LineType, LineWidth, PriceLineSource} from 'lightweight-charts';
 import {ReactNode} from 'react';
 import {AreaSeries, AreaSeriesProps} from 'lightweight-charts-react-wrapper';
@@ -9,7 +9,7 @@ export interface ControlledAreaSeriesProps {
 }
 
 export function ControlledAreaSeries(props: ControlledAreaSeriesProps): JSX.Element {
-    const {top, bottom, ...series} = useControls('Series', {
+    const series = useControls('Series', {
         visible: {
             value: true,
             label: 'Visible',
@@ -210,27 +210,13 @@ export function ControlledAreaSeries(props: ControlledAreaSeriesProps): JSX.Elem
             optional: true,
             disabled: true,
             render: (get) => get('Series.crosshairMarkerVisible'),
-        },
-
-        'Scale margins (deprecated)': folder({
-            top: {
-                min: 0,
-                max: 1,
-                value: 0.1,
-            },
-            bottom: {
-                min: 0,
-                max: 1,
-                value: 0.1,
-            },
-        }, { collapsed: true }),
+        }
     });
 
     return (
         <AreaSeries
             {...props}
             {...series}
-            scaleMargins={{top, bottom}}
         />
     )
 }
