@@ -8,13 +8,13 @@ import {
     useLayoutEffect,
     useRef
 } from 'react';
-import {IPriceLine, PriceLineOptions} from 'lightweight-charts';
+import {IPriceLine, CreatePriceLineOptions} from 'lightweight-charts';
 
 import {createLazyValue, LazyValue} from '../internal/lazy-value.js';
 import {priceLine, PriceLineActionResult} from '../internal/price-line.js';
 import {SeriesContext} from './internal/series-context.js';
 
-export interface PriceLineProps extends PriceLineOptions {
+export interface PriceLineProps extends CreatePriceLineOptions {
     children?: ReactNode;
 }
 
