@@ -11,8 +11,8 @@ import {
     SeriesOptionsMap,
 } from 'lightweight-charts';
 
-import {ActionResult, clone, merge} from './utils';
-import {ChartActionResult} from './chart';
+import {ActionResult, clone, merge} from './utils.js';
+import {ChartActionResult} from './chart.js';
 
 export interface AreaSeriesParams extends AreaSeriesPartialOptions {
     type: 'Area';

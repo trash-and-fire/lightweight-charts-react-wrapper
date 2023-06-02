@@ -6,9 +6,9 @@ import {
 } from 'react';
 import {BaselineSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
 
-import {SeriesContext} from './internal/series-context';
-import {createSeriesHook} from './internal/create-series-hook';
-import {BaselineSeriesParams} from '../internal/series';
+import {SeriesContext} from './internal/series-context.js';
+import {createSeriesHook} from './internal/create-series-hook.js';
+import {BaselineSeriesParams} from '../internal/series.js';
 
 const useBaselineSeriesAction = createSeriesHook<BaselineSeriesParams>('Baseline');
 

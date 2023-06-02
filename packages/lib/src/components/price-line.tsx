@@ -9,9 +9,10 @@ import {
     useRef
 } from 'react';
 import {IPriceLine, PriceLineOptions} from 'lightweight-charts';
-import {createLazyValue, LazyValue} from '../internal/lazy-value';
-import {priceLine, PriceLineActionResult} from '../internal/price-line';
-import {SeriesContext} from './internal/series-context';
+
+import {createLazyValue, LazyValue} from '../internal/lazy-value.js';
+import {priceLine, PriceLineActionResult} from '../internal/price-line.js';
+import {SeriesContext} from './internal/series-context.js';
 
 export interface PriceLineProps extends PriceLineOptions {
     children?: ReactNode;

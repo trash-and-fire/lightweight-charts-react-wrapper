@@ -10,9 +10,10 @@ import {
     useRef
 } from 'react';
 import {DeepPartial, IPriceScaleApi, PriceScaleOptions} from 'lightweight-charts';
-import {createLazyValue, LazyValue} from '../internal/lazy-value';
-import {priceScale, PriceScaleActionResult} from '../internal/price-scale';
-import {ChartContext} from './internal/chart-context';
+
+import {createLazyValue, LazyValue} from '../internal/lazy-value.js';
+import {priceScale, PriceScaleActionResult} from '../internal/price-scale.js';
+import {ChartContext} from './internal/chart-context.js';
 
 export interface PriceScaleProps extends DeepPartial<PriceScaleOptions> {
     id: string;

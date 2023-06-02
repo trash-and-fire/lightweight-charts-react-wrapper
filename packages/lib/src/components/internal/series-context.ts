@@ -1,5 +1,6 @@
 import {createContext} from 'react';
-import {SeriesActionParams, SeriesActionResult} from '../../internal/series';
+
+import {SeriesActionParams, SeriesActionResult} from '../../internal/series.js';
 
 export type SeriesContextValue = null | (() => SeriesActionResult<SeriesActionParams>);
 

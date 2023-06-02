@@ -6,9 +6,9 @@ import {
 } from 'react';
 import {CandlestickSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
 
-import {SeriesContext} from './internal/series-context';
-import {createSeriesHook} from './internal/create-series-hook';
-import {CandlestickSeriesParams} from '../internal/series';
+import {SeriesContext} from './internal/series-context.js';
+import {createSeriesHook} from './internal/create-series-hook.js';
+import {CandlestickSeriesParams} from '../internal/series.js';
 
 const useCandlestickSeriesAction = createSeriesHook<CandlestickSeriesParams>('Candlestick');
 

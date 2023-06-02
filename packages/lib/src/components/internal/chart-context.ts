@@ -1,5 +1,6 @@
 import {createContext} from 'react';
-import {ChartActionResult} from '../../internal/chart';
+
+import {ChartActionResult} from '../../internal/chart.js';
 
 export type ChartContextValue = null | (() => ChartActionResult);
 

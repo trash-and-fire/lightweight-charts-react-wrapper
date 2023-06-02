@@ -1,6 +1,7 @@
 import {DeepPartial, IPriceLine, PriceLineOptions} from 'lightweight-charts';
-import {ActionResult, clone, merge} from './utils';
-import {SeriesActionParams, SeriesActionResult} from './series';
+
+import {ActionResult, clone, merge} from './utils.js';
+import {SeriesActionParams, SeriesActionResult} from './series.js';
 
 export type PriceLineActionResult = ActionResult<PriceLineParams> & { subject(): IPriceLine };
 
