@@ -3,10 +3,10 @@ import {
     DeepPartial,
     IChartApi,
     MouseEventHandler,
+    createChart,
 } from 'lightweight-charts';
-import {ActionResult, clone, merge} from './utils';
 
-import {createChart} from 'lightweight-charts';
+import {ActionResult, clone, merge} from './utils.js';
 
 export interface ChartActionParams extends DeepPartial<ChartOptions> {
     onClick?: MouseEventHandler;

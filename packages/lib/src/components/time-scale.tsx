@@ -16,9 +16,10 @@ import {
     TimeRangeChangeEventHandler,
     TimeScaleOptions
 } from 'lightweight-charts';
-import {createLazyValue, LazyValue} from '../internal/lazy-value';
-import {ChartContext} from './internal/chart-context';
-import {timeScale, TimeScaleActionResult} from '../internal/time-scale';
+
+import {createLazyValue, LazyValue} from '../internal/lazy-value.js';
+import {ChartContext} from './internal/chart-context.js';
+import {timeScale, TimeScaleActionResult} from '../internal/time-scale.js';
 
 export interface TimeScaleProps extends DeepPartial<TimeScaleOptions> {
     children?: ReactNode;

@@ -6,8 +6,9 @@ import {
     TimeRangeChangeEventHandler,
     TimeScaleOptions
 } from 'lightweight-charts';
-import {ActionResult, clone, merge} from './utils';
-import {ChartActionResult} from './chart';
+
+import {ActionResult, clone, merge} from './utils.js';
+import {ChartActionResult} from './chart.js';
 
 export interface TimeScaleParams extends DeepPartial<TimeScaleOptions> {
     onVisibleTimeRangeChange?: TimeRangeChangeEventHandler;

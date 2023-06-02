@@ -12,9 +12,9 @@ import {
 } from 'react';
 import {ChartOptions, DeepPartial, IChartApi, MouseEventHandler} from 'lightweight-charts';
 
-import {ChartContext} from './internal/chart-context';
-import {createLazyValue, LazyValue} from '../internal/lazy-value';
-import {chart, ChartActionResult} from '../internal/chart';
+import {ChartContext} from './internal/chart-context.js';
+import {createLazyValue, LazyValue} from '../internal/lazy-value.js';
+import {chart, ChartActionResult} from '../internal/chart.js';
 
 export interface ChartProps extends DeepPartial<ChartOptions> {
     children?: ReactNode;

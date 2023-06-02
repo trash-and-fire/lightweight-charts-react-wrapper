@@ -6,9 +6,9 @@ import {
 } from 'react';
 import {HistogramSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
 
-import {SeriesContext} from './internal/series-context';
-import {createSeriesHook} from './internal/create-series-hook';
-import {HistogramSeriesParams} from '../internal/series';
+import {SeriesContext} from './internal/series-context.js';
+import {createSeriesHook} from './internal/create-series-hook.js';
+import {HistogramSeriesParams} from '../internal/series.js';
 
 const useHistogramSeriesAction = createSeriesHook<HistogramSeriesParams>('Histogram');
 

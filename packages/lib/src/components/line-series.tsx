@@ -6,9 +6,9 @@ import {
 } from 'react';
 import {LineSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
 
-import {SeriesContext} from './internal/series-context';
-import {createSeriesHook} from './internal/create-series-hook';
-import {LineSeriesParams} from '../internal/series';
+import {SeriesContext} from './internal/series-context.js';
+import {createSeriesHook} from './internal/create-series-hook.js';
+import {LineSeriesParams} from '../internal/series.js';
 
 const useLineSeriesAction = createSeriesHook<LineSeriesParams>('Line');
 
