@@ -1,4 +1,5 @@
 import {
+    HTMLAttributes,
     ForwardedRef,
     forwardRef,
     memo,
@@ -18,22 +19,38 @@ import {chart, ChartActionResult} from '../internal/chart.js';
 
 export interface ChartProps extends DeepPartial<ChartOptions> {
     children?: ReactNode;
+    container?: HTMLAttributes<HTMLDivElement> & { ref?: ForwardedRef<HTMLDivElement> };
     onClick?: MouseEventHandler;
     onCrosshairMove?: MouseEventHandler;
 }
 
 export const Chart = memo(forwardRef(function Chart(props: ChartProps, ref: ForwardedRef<IChartApi>) {
+    const {container = {}, ...rest} = props;
+    const {ref: containerRef, ...restContainer} = container;
+
     const [element, setElement] = useState<HTMLElement | null>(null);
-    const handleContainerRef = useCallback((ref: HTMLElement | null) => setElement(ref), []);
+    const handleContainerRef = useCallback(
+        (ref: HTMLDivElement | null) => {
+            setElement(ref);
+            if (containerRef) {
+                if (typeof containerRef === 'function') {
+                    containerRef(ref);
+                } else {
+                    containerRef.current = ref;
+                }
+            }
+        },
+        [containerRef]
+    );
 
     return (
-        <div ref={handleContainerRef}>
-            {element !== null ? <ChartComponent {...props} ref={ref} container={element}/> : null}
+        <div ref={handleContainerRef} {...restContainer}>
+            {element !== null ? <ChartComponent {...rest} ref={ref} container={element}/> : null}
         </div>
     )
 }));
 
-const ChartComponent = memo(forwardRef(function ChartComponent(props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>) {
+const ChartComponent = memo(forwardRef(function ChartComponent(props: Omit<ChartProps, 'container'> & { container: HTMLElement }, ref: ForwardedRef<IChartApi>) {
     const {children} = props;
 
     const context = useChartAction(props, ref);
@@ -45,7 +62,7 @@ const ChartComponent = memo(forwardRef(function ChartComponent(props: ChartProps
     );
 }));
 
-function useChartAction(props: ChartProps & { container: HTMLElement }, ref: ForwardedRef<IChartApi>): MutableRefObject<LazyValue<ChartActionResult>> {
+function useChartAction(props: Omit<ChartProps, 'container'> & { container: HTMLElement }, ref: ForwardedRef<IChartApi>): MutableRefObject<LazyValue<ChartActionResult>> {
     const {children, container, ...rest} = props;
 
     const context = useRef(createLazyValue(

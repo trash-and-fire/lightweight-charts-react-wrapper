@@ -74,7 +74,9 @@ export function chart(
                 ) {
                     width = nextOptions.width ?? width;
                     height = nextOptions.height ?? height;
-                    chart.resize(width, height, true);
+                    if (!nextOptions.autoSize) {
+                        chart.resize(width, height, true);
+                    }
                 }
 
                 options = nextOptions;
