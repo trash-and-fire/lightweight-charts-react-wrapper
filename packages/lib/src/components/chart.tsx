@@ -43,8 +43,14 @@ export const Chart = memo(forwardRef(function Chart(props: ChartProps, ref: Forw
         [containerRef]
     );
 
+    const style = {
+        height: !props.autoSize && props.height !== undefined ? props.height + 'px' : undefined,
+        width: !props.autoSize && props.width !== undefined ? props.width + 'px' : undefined,
+        ...container.style,
+    }
+
     return (
-        <div ref={handleContainerRef} {...restContainer}>
+        <div ref={handleContainerRef} {...restContainer} style={style}>
             {element !== null ? <ChartComponent {...rest} ref={ref} container={element}/> : null}
         </div>
     )
