@@ -4,7 +4,7 @@ import {
     memo,
     ReactNode,
 } from 'react';
-import {CandlestickSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
+import {CandlestickSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap, SeriesMarker, Time} from 'lightweight-charts';
 
 import {SeriesContext} from './internal/series-context.js';
 import {createSeriesHook} from './internal/create-series-hook.js';
@@ -14,6 +14,7 @@ const useCandlestickSeriesAction = createSeriesHook<CandlestickSeriesParams>('Ca
 
 export interface CandlestickSeriesProps extends CandlestickSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Candlestick'][];
+    markers?: SeriesMarker<Time>[];
     reactive?: boolean;
     children?: ReactNode;
 }

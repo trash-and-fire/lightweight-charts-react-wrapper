@@ -4,7 +4,7 @@ import {
     memo,
     ReactNode,
 } from 'react';
-import {BaselineSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
+import {BaselineSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap, SeriesMarker, Time} from 'lightweight-charts';
 
 import {SeriesContext} from './internal/series-context.js';
 import {createSeriesHook} from './internal/create-series-hook.js';
@@ -14,6 +14,7 @@ const useBaselineSeriesAction = createSeriesHook<BaselineSeriesParams>('Baseline
 
 export interface BaselineSeriesProps extends BaselineSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Baseline'][];
+    markers?: SeriesMarker<Time>[];
     reactive?: boolean;
     children?: ReactNode;
 }

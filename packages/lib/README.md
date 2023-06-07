@@ -92,8 +92,62 @@ To pass a data to a series you can use the `data` property. Look [here](https://
 By default `data` represents only the **initial** data. Any subsequent data update does not update series.
 If you want to change this behavior please add `reactive={true}` to your series component. In this case series will apply a new data if it is not reference equal to previous array. 
 
-### Other components
+#### Passing markers
+To pass markers to a series you can use the `markers` property. Markers should be an array of `SeriesMarker<Time>`.
 
-- `<PriceLine>` - price line (`IPriceLine`). It has to be nested inside `<[Type]Series>` component.
-- `<TimeScale>` - time-scale (`ITimeScaleApi`). It has to be nested inside `<Chart>` component.
-- `<PriceScale>` - price-scale (`IPriceScaleApi`). It has to be nested inside `<Chart>` component.
+### Price line
+
+To draw price line add `<PriceLine>` component inside any series.
+```jsx
+    <Chart width={600} height={300}>
+        <LineSeries data={data}>
+            <PriceLine
+                title="minimum price"
+                price={minimumPrice}
+            />
+            <PriceLine
+                title="average price"
+                price={avgPrice}
+            />
+            <PriceLine
+                title="maximum price"
+                price={maximumPrice}
+            />
+        </LineSeries>
+    </Chart>
+```
+
+You can pass any options from [`PriceLineOptions`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/PriceLineOptions) as separate property. The `price` property is mandatory in dev mode.
+
+Use the `ref` property to get reference to a [`IPriceLine`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/IPriceLine) instance.
+
+### Time scale
+
+`<TimeScale>` - the component is a binding to the current time scale of the current chart.
+This component has to be nested inside a chart component and should not have duplicates. Each chart has only one time scale.
+
+You can pass any option from [`TimeScaleOptions`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/TimeScaleOptions) as separate property.
+
+Events:
+- [`onVisibleTimeRangeChange`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/ITimeScaleApi#subscribevisibletimerangechange) - `(timeRange: TimeRange | null) => void`
+- [`onVisibleLogicalRangeChange`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/ITimeScaleApi#subscribevisiblelogicalrangechange) - `(logicalRange: LogicalRange | null) => void`
+- [`onSizeChange`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/ITimeScaleApi#subscribesizechange) - `(width: number, height: number) => void`
+
+Use the `ref` property to get reference to a [`ITimeScaleApi`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/ITimeScaleApi) instance.
+
+Note: don't use `ChartOptions['timeScale']` and `<TimeScale>` component at the same time. This can lead to uncontrolled overwriting of options.
+
+### Price scale
+
+`<PriceScale>` - the component is a bindings to a certain price scale.
+This component has to be nested inside chart component and requires an `id` property. Two price scales with the same `id` within the same chart result in undefined behaviour. 
+
+You can pass any option from [`PriceScaleOptions`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/PriceScaleOptions) as separate property.
+
+Note: don't use `ChartOptions['leftPriceScale']'` or `ChartOptions['rightPriceScale']` or `ChartOptions['overlayPriceScale']` and `<PriceScale>` at the same time. This can lead to uncontrolled overwriting of options.
+
+## Licence
+
+MIT
+
+Review the license [requirements](https://github.com/tradingview/lightweight-charts#license) for the required "attribution notice" in the Lightweight Chart Repository.

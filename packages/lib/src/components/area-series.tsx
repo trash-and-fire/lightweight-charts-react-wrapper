@@ -4,7 +4,7 @@ import {
     memo,
     ReactNode,
 } from 'react';
-import {AreaSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap} from 'lightweight-charts';
+import {AreaSeriesPartialOptions, ISeriesApi, SeriesDataItemTypeMap, SeriesMarker, Time} from 'lightweight-charts';
 
 import {SeriesContext} from './internal/series-context.js';
 import {createSeriesHook} from './internal/create-series-hook.js';
@@ -14,6 +14,7 @@ const useAreaSeriesAction = createSeriesHook<AreaSeriesParams>('Area');
 
 export interface AreaSeriesProps extends AreaSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Area'][];
+    markers?: SeriesMarker<Time>[];
     reactive?: boolean;
     children?: ReactNode;
 }

@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {BarPrice, BusinessDay, CandlestickData, CrosshairMode, ISeriesApi, MouseEventParams} from 'lightweight-charts';
+import {AreaData, BusinessDay, CandlestickData, CrosshairMode, ISeriesApi, MouseEventParams} from 'lightweight-charts';
 import {Chart, LineSeries, CandlestickSeries} from 'lightweight-charts-react-wrapper';
 
 import styles from './moving-average.module.css';
@@ -12,9 +12,9 @@ export default function MovingAverage() {
         if (ref.current === null) {
             return;
         }
-        const price = e.seriesPrices.get(ref.current) as BarPrice | undefined;
-        if (price !== undefined) {
-            setValue((Math.round(price * 100) / 100).toFixed(2));
+        const data = e.seriesData.get(ref.current) as AreaData | undefined;
+        if (data !== undefined) {
+            setValue((Math.round(data.value * 100) / 100).toFixed(2));
         } else {
             setValue('n/a');
         }

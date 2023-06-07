@@ -9,6 +9,8 @@ import {
     LineSeriesPartialOptions,
     BaselineSeriesPartialOptions,
     SeriesOptionsMap,
+    SeriesMarker,
+    Time,
 } from 'lightweight-charts';
 
 import {ActionResult, clone, merge} from './utils.js';
@@ -18,36 +20,42 @@ export interface AreaSeriesParams extends AreaSeriesPartialOptions {
     type: 'Area';
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Area'][];
+    markers?: SeriesMarker<Time>[];
 }
 
 export interface BarSeriesParams extends BarSeriesPartialOptions {
     type: 'Bar';
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Bar'][];
+    markers?: SeriesMarker<Time>[];
 }
 
 export interface CandlestickSeriesParams extends CandlestickSeriesPartialOptions {
     type: 'Candlestick';
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Candlestick'][];
+    markers?: SeriesMarker<Time>[];
 }
 
 export interface HistogramSeriesParams extends HistogramSeriesPartialOptions {
     type: 'Histogram';
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Histogram'][];
+    markers?: SeriesMarker<Time>[];
 }
 
 export interface LineSeriesParams extends LineSeriesPartialOptions {
     type: 'Line';
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Line'][];
+    markers?: SeriesMarker<Time>[];
 }
 
 export interface BaselineSeriesParams extends BaselineSeriesPartialOptions {
     type: 'Baseline';
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Baseline'][];
+    markers?: SeriesMarker<Time>[];
 }
 
 export type SeriesActionParams =
@@ -61,13 +69,18 @@ export type SeriesActionParams =
 export type SeriesActionResult<T extends SeriesActionParams> = ActionResult<T> & { subject(): ISeriesApi<T['type']>; alive(): boolean }
 
 export function series<T extends SeriesActionParams>(target: ChartActionResult, params: T): SeriesActionResult<T> {
+    const emptyMarkers: SeriesMarker<Time>[] = [];
+
     let [subject, defaults] = createSeries(target.subject(), params);
     let data = params.reactive ? params.data : null;
+    let markers = params.markers ?? emptyMarkers;
     let destroyed = false;
 
     // Never use shorthand properties as default values
     delete (defaults as any).borderColor;
     delete (defaults as any).wickColor;
+
+    subject.setMarkers(markers);
 
     return {
         alive(): boolean {
@@ -80,6 +93,7 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
             const {
                 type: nextType,
                 data: nextData,
+                markers: nextMarkers = emptyMarkers,
                 reactive: nextReactive,
                 ...nextOptions
             } = nextParams
@@ -97,6 +111,11 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
             if (nextData !== data && nextReactive) {
                 data = nextData;
                 subject.setData(data);
+            }
+
+            if (nextMarkers !== markers) {
+                markers = nextMarkers;
+                subject.setMarkers(markers);
             }
         },
         destroy(): void {

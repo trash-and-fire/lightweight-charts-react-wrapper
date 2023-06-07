@@ -1,6 +1,6 @@
-import {ReactNode} from 'react';
+import {ReactNode, useMemo} from 'react';
 import {useControls} from 'leva';
-import {Chart} from 'lightweight-charts-react-wrapper';
+import {Chart, ChartProps} from 'lightweight-charts-react-wrapper';
 import {
     ColorType,
     CrosshairMode,
@@ -192,10 +192,20 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
     const kineticScroll = useKineticScrollControls('Kinetic scroll');
     const trackingMode = useTrackingModeControls('Tracking mode');
 
+    const container = useMemo(
+        (): ChartProps['container'] => size.autoSize ? {
+            style: { aspectRatio: '3 / 2', width: size.width, contain: 'size' },
+        } : {
+            ref: (r: HTMLDivElement | null) => console.log(r),
+        },
+        [size.autoSize, size.width]
+    );
+
     return (
         <Chart
             {...props}
             {...size}
+            container={container}
             watermark={watermark}
             layout={layout}
             trackingMode={trackingMode}
@@ -211,8 +221,19 @@ export function ControlledChart(props: ControlledChartProps): JSX.Element {
 
 function useSizeControls(name: string) {
     return useControls(name, {
-        width: 600,
-        height: 300,
+        autoSize: {
+            value: true,
+            label: 'Autosize',
+        },
+        width: {
+            value: 600,
+            label: 'Width',
+        },
+        height: {
+            value: 300,
+            label: 'Height',
+            render: (get) => !get(`${name}.autoSize`),
+        },
     });
 }
 
@@ -235,7 +256,8 @@ function useWatermarkControls(name: string) {
             render: (get) => get(`${name}.visible`),
         },
         fontSize: {
-            value: 48, label: '-- font size',
+            value: 48,
+            label: '-- font size',
             optional: true,
             disabled: true,
             render: (get) => get(`${name}.visible`),
