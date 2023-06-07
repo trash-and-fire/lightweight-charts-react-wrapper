@@ -1,0 +1,20 @@
+# Lightweight Charts React Wrapper changelog
+
+## 2.0.0
+
+In this major release, the required version of the Lightweight Charts package has been upgraded to 4.0.0 to support the package's new features.
+
+Check out `lightweight-charts@4.0.0` [release notes](https://github.com/tradingview/lightweight-charts/releases/tag/v4.0.0) first.
+
+### Breaking changes
+
+- ESM only (CJS support can be added on demand in the future).
+- Properties that were renamed or removed in `lighweight-charts@4.0.0` were also renamed or removed in wrappers.
+
+### New features
+
+- Added `markers` property to `<[Type]Series>` components.
+- Supported `autoSize` option on `<Chart>` component.
+- Reduced layout shift on SSR. The chart component will reserve the specified width and height if the chart is not auto-sized. New `lightweight-charts@4.0.0` features are also available without being explicitly mentioned in this changelog.
+
+New `lightweight-charts@4.0.0` features are also available without being explicitly mentioned in this changelog.
