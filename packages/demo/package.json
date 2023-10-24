@@ -24,7 +24,8 @@
     "lodash-es": "~4.17.21",
     "@types/lodash-es": "~4.17.6",
     "@babel/runtime": "7.17.9",
-    "leva": "~0.9.27"
+    "leva": "~0.9.27",
+    "fancy-canvas": "2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

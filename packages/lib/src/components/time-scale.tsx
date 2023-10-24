@@ -12,7 +12,9 @@ import {
 import {
     DeepPartial,
     ITimeScaleApi,
-    LogicalRangeChangeEventHandler, SizeChangeEventHandler,
+    LogicalRangeChangeEventHandler,
+    SizeChangeEventHandler,
+    Time,
     TimeRangeChangeEventHandler,
     TimeScaleOptions
 } from 'lightweight-charts';
@@ -23,18 +25,18 @@ import {timeScale, TimeScaleActionResult} from '../internal/time-scale.js';
 
 export interface TimeScaleProps extends DeepPartial<TimeScaleOptions> {
     children?: ReactNode;
-    onVisibleTimeRangeChange?: TimeRangeChangeEventHandler;
+    onVisibleTimeRangeChange?: TimeRangeChangeEventHandler<Time>;
     onVisibleLogicalRangeChange?: LogicalRangeChangeEventHandler;
     onSizeChange?: SizeChangeEventHandler;
 }
 
-export const TimeScale = memo(forwardRef(function TimeScale(props: TimeScaleProps, ref: ForwardedRef<ITimeScaleApi>) {
+export const TimeScale = memo(forwardRef(function TimeScale(props: TimeScaleProps, ref: ForwardedRef<ITimeScaleApi<Time>>) {
     useTimeScaleAction(props, ref);
 
     return null;
 }));
 
-function useTimeScaleAction(props: TimeScaleProps, ref: ForwardedRef<ITimeScaleApi>): MutableRefObject<LazyValue<TimeScaleActionResult>> {
+function useTimeScaleAction(props: TimeScaleProps, ref: ForwardedRef<ITimeScaleApi<Time>>): MutableRefObject<LazyValue<TimeScaleActionResult>> {
     const {children, ...rest} = props;
 
     const chart = useContext(ChartContext)!;

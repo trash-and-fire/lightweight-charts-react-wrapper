@@ -8,9 +8,11 @@ import {
     HistogramSeriesPartialOptions,
     LineSeriesPartialOptions,
     BaselineSeriesPartialOptions,
+    CustomSeriesPartialOptions,
     SeriesOptionsMap,
     SeriesMarker,
     Time,
+    ICustomSeriesPaneView,
 } from 'lightweight-charts';
 
 import {ActionResult, clone, merge} from './utils.js';
@@ -58,6 +60,14 @@ export interface BaselineSeriesParams extends BaselineSeriesPartialOptions {
     markers?: SeriesMarker<Time>[];
 }
 
+export interface CustomSeriesParams extends CustomSeriesPartialOptions {
+    type: 'Custom';
+    reactive?: boolean;
+    view: ICustomSeriesPaneView<Time, SeriesDataItemTypeMap['Custom'], SeriesOptionsMap['Custom']>;
+    data: SeriesDataItemTypeMap['Custom'][];
+    markers?: SeriesMarker<Time>[];
+}
+
 export type SeriesActionParams =
     | AreaSeriesParams
     | BarSeriesParams
@@ -65,6 +75,8 @@ export type SeriesActionParams =
     | HistogramSeriesParams
     | LineSeriesParams
     | BaselineSeriesParams
+    | CustomSeriesParams
+;
 
 export type SeriesActionResult<T extends SeriesActionParams> = ActionResult<T> & { subject(): ISeriesApi<T['type']>; alive(): boolean }
 
@@ -87,7 +99,7 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
             return !destroyed;
         },
         subject(): ISeriesApi<T['type']> {
-            return subject;
+            return subject as ISeriesApi<T['type']>;
         },
         update(nextParams: T): void {
             const {
@@ -95,14 +107,13 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
                 data: nextData,
                 markers: nextMarkers = emptyMarkers,
                 reactive: nextReactive,
-                ...nextOptions
             } = nextParams
 
-            if (nextParams.type !== subject.seriesType()) {
+            if (nextType !== subject.seriesType()) {
                 throw new TypeError('Can not change type of series in runtime. Report a bug please');
             }
 
-            subject.applyOptions(merge(clone(defaults), nextOptions));
+            subject.applyOptions(merge(clone(defaults), omit(nextParams)));
 
             if (!nextReactive) {
                 data = null;
@@ -140,47 +151,54 @@ function createSeries<T extends SeriesActionParams>(
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
-            return [series, defaults as SeriesOptionsMap[T['type']]];
+            return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Bar': {
             const series = chart.addBarSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
-            return [series, defaults as SeriesOptionsMap[T['type']]];
+            return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Candlestick': {
             const series = chart.addCandlestickSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
-            return [series, defaults as SeriesOptionsMap[T['type']]];
+            return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Histogram': {
             const series = chart.addHistogramSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
-            return [series, defaults as SeriesOptionsMap[T['type']]];
+            return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Line': {
             const series = chart.addLineSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
-            return [series, defaults as SeriesOptionsMap[T['type']]];
+            return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
         }
         case 'Baseline': {
             const series = chart.addBaselineSeries();
             const defaults = clone(series.options());
             series.applyOptions(omit(params));
             series.setData(params.data);
-            return [series, defaults as SeriesOptionsMap[T['type']]];
+            return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
+        }
+        case 'Custom': {
+            const series = chart.addCustomSeries(params.view);
+            const defaults = clone(series.options());
+            series.applyOptions(omit(params))
+            series.setData(params.data);
+            return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
         }
     }
 }
 
-function omit<T extends { reactive?: unknown; data: unknown; type: unknown }>(params: T): Omit<T, 'reactive' | 'data' | 'type'> {
-    const {reactive, data, type, ...rest} = params;
+function omit<T extends { reactive?: unknown; data: unknown; type: unknown; view?: unknown }>(params: T): Omit<T, 'reactive' | 'data' | 'type' | 'view'> {
+    const {reactive, data, type, view, ...rest} = params;
     return rest;
 }

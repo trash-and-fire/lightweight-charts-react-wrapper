@@ -10,7 +10,7 @@ export function createSeriesHook<T extends SeriesActionParams>(type: T['type']) 
         const chart = useContext(ChartContext)!;
 
         const context = useRef(createLazyValue(
-            () => series(chart(), { ...props, type }),
+            () => series(chart(), { ...props, type } as T),
             (value: SeriesActionResult<T> ) => value.destroy()
         ));
 

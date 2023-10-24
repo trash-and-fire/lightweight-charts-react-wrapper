@@ -2,7 +2,7 @@ import React from 'react';
 import {SeriesMarker, Time} from 'lightweight-charts';
 import {Chart, CandlestickSeries} from 'lightweight-charts-react-wrapper';
 
-export default function CandlestickChart() {
+export default function SeriesMarkers() {
     return (
         <>
             <h1>Series markers</h1>

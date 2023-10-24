@@ -19,6 +19,7 @@ importers:
       '@types/webpack-env': ~1.17.0
       classnames: ~2.3.1
       codesandboxer: ~1.0.3
+      fancy-canvas: 2.1.0
       leva: ~0.9.27
       lightweight-charts: 4.1.0
       lightweight-charts-react-wrapper: workspace:*
@@ -42,6 +43,7 @@ importers:
       '@types/webpack-env': 1.17.0
       classnames: 2.3.1
       codesandboxer: 1.0.3
+      fancy-canvas: 2.1.0
       leva: 0.9.27_ef5jwxihqo6n7gxfmzogljlgcm
       lightweight-charts: 4.1.0
       lightweight-charts-react-wrapper: link:../lib

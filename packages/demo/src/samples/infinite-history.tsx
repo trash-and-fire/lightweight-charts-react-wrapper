@@ -1,9 +1,9 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {BusinessDay, CandlestickData, ISeriesApi, ITimeScaleApi} from 'lightweight-charts';
+import {BusinessDay, CandlestickData, ISeriesApi, ITimeScaleApi, Time} from 'lightweight-charts';
 import {Chart, CandlestickSeries, TimeScale} from 'lightweight-charts-react-wrapper';
 
 export default function InfiniteHistory() {
-    const timeScale = useRef<ITimeScaleApi>(null)
+    const timeScale = useRef<ITimeScaleApi<Time>>(null)
     const candleSeries = useRef<ISeriesApi<'Candlestick'>>(null);
     const timer = useRef<number | null>(null);
 

@@ -11,7 +11,7 @@ import {
     useRef,
     useState
 } from 'react';
-import {ChartOptions, DeepPartial, IChartApi, MouseEventHandler} from 'lightweight-charts';
+import {ChartOptions, DeepPartial, IChartApi, MouseEventHandler, Time} from 'lightweight-charts';
 
 import {ChartContext} from './internal/chart-context.js';
 import {createLazyValue, LazyValue} from '../internal/lazy-value.js';
@@ -20,8 +20,8 @@ import {chart, ChartActionResult} from '../internal/chart.js';
 export interface ChartProps extends DeepPartial<ChartOptions> {
     children?: ReactNode;
     container?: HTMLAttributes<HTMLDivElement> & { ref?: ForwardedRef<HTMLDivElement> };
-    onClick?: MouseEventHandler;
-    onCrosshairMove?: MouseEventHandler;
+    onClick?: MouseEventHandler<Time>;
+    onCrosshairMove?: MouseEventHandler<Time>;
 }
 
 export const Chart = memo(forwardRef(function Chart(props: ChartProps, ref: ForwardedRef<IChartApi>) {
