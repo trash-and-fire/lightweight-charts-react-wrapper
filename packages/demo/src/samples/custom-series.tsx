@@ -18,6 +18,7 @@ import {
     PriceToCoordinateConverter,
     LineData,
     IChartApi,
+    DeepPartial,
 } from 'lightweight-charts';
 
 import {Chart, CustomSeries} from 'lightweight-charts-react-wrapper';
@@ -42,7 +43,7 @@ export default function BrushableSeries() {
                 container={{ref: container}}
             >
                 <CustomSeries
-                    view={view as any}
+                    view={view}
                     data={data}
                     {...options}
                 />
@@ -51,9 +52,12 @@ export default function BrushableSeries() {
     )
 }
 
-function useBrushableView(chart: IChartApi | null, containerRef: MutableRefObject<HTMLDivElement | null>) {
+function useBrushableView(chart: IChartApi | null, containerRef: MutableRefObject<HTMLDivElement | null>): [
+    view: BrushableAreaSeries<BrushableAreaData>,
+    options: DeepPartial<BrushableAreaSeriesOptions>,
+] {
     const [view] = useState(() => new BrushableAreaSeries());
-    const [options, setOptions] = useState<Partial<BrushableAreaSeriesOptions>>(() => ({
+    const [options, setOptions] = useState<DeepPartial<BrushableAreaSeriesOptions>>(() => ({
         ...baseStyle,
         priceLineVisible: false,
     }));

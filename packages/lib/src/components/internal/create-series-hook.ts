@@ -5,7 +5,7 @@ import {ChartContext} from './chart-context.js';
 import {createLazyValue} from '../../internal/lazy-value.js';
 import {series, SeriesActionParams, SeriesActionResult} from '../../internal/series.js';
 
-export function createSeriesHook<T extends SeriesActionParams>(type: T['type']) {
+export function createSeriesHook<T extends SeriesActionParams>(type: T['type'], deps?: (props: Omit<T, 'type'>) => unknown[]) {
     return (props: Omit<T, 'type'>, ref: ForwardedRef<ISeriesApi<T['type']>>) => {
         const chart = useContext(ChartContext)!;
 
@@ -26,7 +26,7 @@ export function createSeriesHook<T extends SeriesActionParams>(type: T['type']) 
             context.current().update({ ...props, type: type } as T);
         }, [props]);
 
-        useImperativeHandle(ref, () => context.current().subject(), []);
+        useImperativeHandle(ref, () => context.current().subject(), deps ? deps(props) : []);
 
         return context;
     }

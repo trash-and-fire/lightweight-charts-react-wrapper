@@ -86,6 +86,8 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
     let [subject, defaults] = createSeries(target.subject(), params);
     let data = params.reactive ? params.data : null;
     let markers = params.markers ?? emptyMarkers;
+    let view = params.type === 'Custom' ? params.view : null;
+
     let destroyed = false;
 
     // Never use shorthand properties as default values
@@ -111,6 +113,13 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
 
             if (nextType !== subject.seriesType()) {
                 throw new TypeError('Can not change type of series in runtime. Report a bug please');
+            }
+
+            if (nextParams.type === 'Custom' && subject.seriesType() === 'Custom' && nextParams.view !== view) {
+                target.subject().removeSeries(subject);
+                [subject, defaults] = createSeries(target.subject(), nextParams);
+                view = nextParams.view;
+                return;
             }
 
             subject.applyOptions(merge(clone(defaults), omit(nextParams)));
