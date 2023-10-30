@@ -20,3 +20,5 @@ export {PriceScale} from './components/price-scale.js';
 export type {PriceScaleProps} from './components/price-scale.js';
 export {CustomSeries} from './components/custom-series.js';
 export type {CustomSeriesProps} from './components/custom-series.js';
+export {SeriesPrimitive} from './components/series-primitive.js';
+export type {SeriesPrimitiveProps, IReactiveSeriesPrimitive} from './components/series-primitive.js';
