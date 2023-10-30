@@ -78,6 +78,7 @@ Following types of series are supported:
 - `<CandlestickSeries>`
 - `<HistogramSeries>`
 - `<LineSeries>`
+- `<CustomSeries>`
 
 Series components should be nested inside a chart component. 
 
@@ -94,6 +95,17 @@ If you want to change this behavior please add `reactive={true}` to your series 
 
 #### Passing markers
 To pass markers to a series you can use the `markers` property. Markers should be an array of `SeriesMarker<Time>`.
+
+#### Custom series
+You can pass an instance of a class that implements the [ICustomSeriesPaneView](https://tradingview.github.io/lightweight-charts/docs/next/api/interfaces/ICustomSeriesPaneView) interface as the value of the `view` property.
+All additional properties other than `children`, `ref`, `reactive`, and `markers` will be passed to the [ICustomSeriesPaneView::update](https://tradingview.github.io/lightweight-charts/docs/next/api/interfaces/ICustomSeriesPaneView#update) method
+```jsx
+function BrushableSeries() {
+    const [view] = useState(() => new BrushableAreaSeries())
+    return <CustomSeries view={view} data={data} {...options}/>
+}
+```
+Look the [demo page](https://trash-and-fire.github.io/lightweight-charts-react-wrapper/) for an example of custom series.
 
 ### Price line
 
@@ -120,6 +132,30 @@ To draw price line add `<PriceLine>` component inside any series.
 You can pass any options from [`PriceLineOptions`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/PriceLineOptions) as separate property. The `price` property is mandatory in dev mode.
 
 Use the `ref` property to get reference to a [`IPriceLine`](https://tradingview.github.io/lightweight-charts/docs/api/interfaces/IPriceLine) instance.
+
+### Custom Series Primitives
+You can implement your own series primitive using the `<SeriesPrimitive>` component.
+```jsx
+export function VerticalLine() {
+    const [view] = useState(() => new VertLine());
+    
+    return (
+        <SeriesPrimitive
+            view={view}
+            time={Date.now()}
+            showLabel={true}
+            color={color}
+            labelText={'Hello'}
+        />
+    );
+}
+```
+The only mandatory property is `view` which should be an instance of the class that implements [ISeriesPrimitive](https://tradingview.github.io/lightweight-charts/docs/next/api#iseriesprimitive) and additional method `applyOptions(options: T): void`.
+All additional properties other than `view` will be passed to the `applyOptions` method.
+
+Any series primitive should be nested inside a `<[Type]Series>` component.
+
+Look the [demo page](https://trash-and-fire.github.io/lightweight-charts-react-wrapper/) for an example of vertical lines.
 
 ### Time scale
 
