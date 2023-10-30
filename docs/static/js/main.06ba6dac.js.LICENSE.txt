@@ -5,6 +5,13 @@
 */
 
 /*!
+ * @license
+ * TradingView Lightweight Charts™ v4.1.0
+ * Copyright (c) 2023 TradingView, Inc.
+ * Licensed under Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0
+ */
+
+/*!
  * assign-symbols <https://github.com/jonschlinkert/assign-symbols>
  *
  * Copyright (c) 2015, Jon Schlinkert.

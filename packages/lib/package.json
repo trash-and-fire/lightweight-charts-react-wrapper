@@ -1,6 +1,6 @@
 {
   "name": "lightweight-charts-react-wrapper",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "",
   "type": "module",
   "exports": "./dist/index.js",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
-    "lightweight-charts": "4.0.1",
+    "lightweight-charts": "4.1.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "rimraf": "^2.6.2",

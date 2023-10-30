@@ -4,13 +4,14 @@ import {
     IChartApi,
     MouseEventHandler,
     createChart,
+    Time,
 } from 'lightweight-charts';
 
 import {ActionResult, clone, merge} from './utils.js';
 
 export interface ChartActionParams extends DeepPartial<ChartOptions> {
-    onClick?: MouseEventHandler;
-    onCrosshairMove?: MouseEventHandler;
+    onClick?: MouseEventHandler<Time>;
+    onCrosshairMove?: MouseEventHandler<Time>;
 }
 
 export type ChartActionResult = ActionResult<ChartActionParams> & { subject(): IChartApi; alive(): boolean };

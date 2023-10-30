@@ -19,8 +19,9 @@ importers:
       '@types/webpack-env': ~1.17.0
       classnames: ~2.3.1
       codesandboxer: ~1.0.3
+      fancy-canvas: 2.1.0
       leva: ~0.9.27
-      lightweight-charts: 4.0.1
+      lightweight-charts: 4.1.0
       lightweight-charts-react-wrapper: workspace:*
       lodash-es: ~4.17.21
       react: ^18.1.0
@@ -42,8 +43,9 @@ importers:
       '@types/webpack-env': 1.17.0
       classnames: 2.3.1
       codesandboxer: 1.0.3
+      fancy-canvas: 2.1.0
       leva: 0.9.27_ef5jwxihqo6n7gxfmzogljlgcm
-      lightweight-charts: 4.0.1
+      lightweight-charts: 4.1.0
       lightweight-charts-react-wrapper: link:../lib
       lodash-es: 4.17.21
       react: 18.1.0
@@ -57,7 +59,7 @@ importers:
     specifiers:
       '@types/react': ^18.0.9
       '@types/react-dom': ^18.0.4
-      lightweight-charts: 4.0.1
+      lightweight-charts: 4.1.0
       react: ^18.1.0
       react-dom: ^18.1.0
       rimraf: ^2.6.2
@@ -66,7 +68,7 @@ importers:
     devDependencies:
       '@types/react': 18.0.9
       '@types/react-dom': 18.0.5
-      lightweight-charts: 4.0.1
+      lightweight-charts: 4.1.0
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
       rimraf: 2.7.1
@@ -6844,8 +6846,8 @@ packages:
       type-check: 0.4.0
     dev: false
 
-  /lightweight-charts/4.0.1:
-    resolution: {integrity: sha512-p+j6w41PVzf9Vn7IrmpmCJacunpN0kKsl0IZoxMOySSkDcSagZ7Is9pb6pclIfN/usHdta0aYm9FktkYpAQe0g==}
+  /lightweight-charts/4.1.0:
+    resolution: {integrity: sha512-O7RPoRLPPmwRNOTmBq1ne5eKgjdVZocd2TE77JCfaVJEwS+0meN9UwMKGNGiiRQBb2UkuhyBSiX7XrErBuL+CQ==}
     dependencies:
       fancy-canvas: 2.1.0
 
