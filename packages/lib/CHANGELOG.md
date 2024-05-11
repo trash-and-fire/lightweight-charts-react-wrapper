@@ -1,5 +1,9 @@
 # Lightweight Charts React Wrapper changelog
 
+## 2.1.1
+
+- `rightOffset` is only applied to TimeScale if it has changed.
+- 
 ## 2.1.0
 
 Added support for some new `lightweight-charts@4.1.0` features:
