@@ -24,6 +24,7 @@ export function timeScale(target: ChartActionResult, params: TimeScaleParams): T
         onVisibleTimeRangeChange,
         onVisibleLogicalRangeChange,
         onSizeChange,
+
         ...options
     } = params;
 
@@ -51,13 +52,23 @@ export function timeScale(target: ChartActionResult, params: TimeScaleParams): T
                 onVisibleTimeRangeChange: nextOnVisibleTimeRangeChange,
                 onVisibleLogicalRangeChange: nextOnVisibleLogicalRangeChange,
                 onSizeChange: nextOnSizeChange,
+
                 ...nextOptions
             } = nextParams;
 
             if (nextOptions !== options) {
+                /*
+                  The rightOffset behaves like a command not an option.
+                  It should be omitted to prevent scroll to the right edge on every render.
+                 */
+                const omitRightOffset = nextOptions.rightOffset === options.rightOffset;
                 options = nextOptions;
                 if (options) {
-                    subject.applyOptions(merge(clone(defaults), options));
+                    const optionsToApply = merge(clone(defaults), options);
+                    if (omitRightOffset) {
+                        delete optionsToApply.rightOffset;
+                    }
+                    subject.applyOptions(optionsToApply);
                 }
             }
 
